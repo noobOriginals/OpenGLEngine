@@ -21,8 +21,8 @@ Here are the options you should use:
 
 Now click "**GENERATE**" and then click on the "**glad.zip**" file to download it.  
 Extract the files, and place the contents of the include folder (the "**glad**" and "**KHR**" folders) into a new folder that you name "**opengl**".  
-Also place the "**glad.c**" file found in the src folder directly into your "**opengl**" folder.
-In the same folder, creaet a new file named "**CMakeLists.txt**" that contains the following **CMake** script:  
+Also place the "**glad.c**" file found in the src folder directly into your "**opengl**" folder.  
+In the same folder, create a new file named "**CMakeLists.txt**" that contains the following **CMake** script:  
 ```cmake
 cmake_minimum_required(VERSION 3.26)
 
@@ -40,7 +40,7 @@ After placing the "**glad.lib**" file directly in your "**opengl**" folder, you 
 ## GLFW
 
 Get the GLFW library from **[their website](https://www.glfw.org/)** or by **[cloning it on github](https://github.com/glfw/glfw)**.  
-Then follow **[these steps](#building-with-the-cmake-gui)** to build the GLFW library with CMake. 
+Then follow **[these steps](#building-with-the-cmake-gui)** to build the GLFW library with CMake.  
 **Make sure to build it with the "Release" config.**     
 In the build directory provided to CMake, after you build the files, you should have a folder named "**src**".
 Navigate to "**src/Release**", and copy the "**glfw3.lib**" to your "**opengl**" folder.  
