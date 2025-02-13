@@ -1,16 +1,13 @@
 #include <iostream>
 
 #include <api/window.hpp>
+#include <api/shader.hpp>
 
 using namespace api;
 
 int main() {
-    window::useCallouts(true);
-    Window window(800, 600, "GL Test");
-
-    while (!window.shouldClose()) {
-        window.flush();
-    }
+    shader::useCallouts(true);
+    Shader shader;
 
     return 0;
 }

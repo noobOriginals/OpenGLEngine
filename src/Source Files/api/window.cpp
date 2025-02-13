@@ -1,7 +1,5 @@
 #include <api/window.hpp>
-
-using namespace api;
-using namespace window;
+using namespace api::window;
 
 void def_framebuffer_size_callback(GLFWwindow* window, int32 width, int32 height) {
     glViewport(0, 0, width, height);
@@ -12,9 +10,9 @@ namespace api {
 namespace window {
 	// Utility
 	uint32 windowCount = 0;
-	bool wcallouts = false;
+	bool callouts = false, glfwTerminated = true;
 	uint32 getWindowCount() { return windowCount; }
-	void useCallouts(bool value) { wcallouts = value; }
+	void useCallouts(bool value) { callouts = value; }
 }
 
 Window::Window(const uint32 width, const uint32 height, const std::string title) {
@@ -22,10 +20,15 @@ Window::Window(const uint32 width, const uint32 height, const std::string title)
 	this->width = width;
 	this->height = height;
 	fscreen = false;
-	if (wcallouts) std::cout << "Window: Creating window \"" << title << "\"\n";
+	resizable = true;
+	closed = false;
+	if (callouts) std::cout << "Window: Creating window \"" << title << "\"\n";
 	
 	// Prepare GLFW for window creation
-	if (windowCount < 1) glfwInit();
+	if (glfwTerminated) {
+		glfwInit();
+		glfwTerminated = false;
+	}
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -51,21 +54,36 @@ Window::Window(const uint32 width, const uint32 height, const std::string title)
 }
 Window::~Window() {
 	// Discard resources
-	glfwSetWindowShouldClose(address, true);
-	glfwDestroyWindow(address);
-	windowCount--;
-	if (wcallouts) std::cout << "Window: Destructing window \"" << title << "\"\n";
-	if (windowCount < 1) {
-		glfwTerminate();
-		if (wcallouts) std::cout << "Window: No windows remaining" << "\n";
-		if (wcallouts) std::cout << "Window: Terminating GLFW" << "\n";
+	if (!closed) {
+		glfwSetWindowShouldClose(address, true);
+		glfwDestroyWindow(address);
+		windowCount--;
+		if (callouts) std::cout << "Window: Destructing window \"" << title << "\"\n";
 	}
+	if (windowCount < 1 && !glfwTerminated) {
+		glfwTerminate();
+		if (callouts) std::cout << "Window: No windows remaining" << "\n";
+		if (callouts) std::cout << "Window: Terminating GLFW" << "\n";
+		glfwTerminated = true;
+	}
+	closed = true;
 }
 // Utility
 void Window::close() {
 	// Close and discard resources
-	glfwSetWindowShouldClose(address, GLFW_TRUE);
-	glfwDestroyWindow(address);
+	if (!closed) {
+		glfwSetWindowShouldClose(address, true);
+		glfwDestroyWindow(address);
+		windowCount--;
+		if (callouts) std::cout << "Window: Destructing window \"" << title << "\"\n";
+	}
+	if (windowCount < 1 && !glfwTerminated) {
+		glfwTerminate();
+		if (callouts) std::cout << "Window: No windows remaining" << "\n";
+		if (callouts) std::cout << "Window: Terminating GLFW" << "\n";
+		glfwTerminated = true;
+	}
+	closed = true;
 }
 void Window::flush() {
 	glfwSwapBuffers(address);
@@ -73,6 +91,9 @@ void Window::flush() {
 }
 void Window::setFramebufferSizeCallback(void(*func)(GLFWwindow* window, int32 width, int32 height)) {
 	glfwSetFramebufferSizeCallback(address, func);
+}
+void Window::resetFramebufferSizeCallback() {
+	glfwSetFramebufferSizeCallback(address, def_framebuffer_size_callback);
 }
 void Window::setCursorPosCallback(void(*func)(GLFWwindow* window, float64 xpos, float64 ypos)) {
 	glfwSetCursorPosCallback(address, func);

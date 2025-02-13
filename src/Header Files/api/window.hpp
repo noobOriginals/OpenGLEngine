@@ -1,5 +1,5 @@
-#ifndef WINDOW_H
-#define WINDOW_H
+#ifndef WINDOW_HPP
+#define WINDOW_HPP
 
 // Std includes
 #include <iostream>
@@ -21,14 +21,14 @@ namespace window {
 }
 class Window {
 public:
-	Window() { address = 0; width = 0; height = 0; title = ""; fscreen = false; }
-	Window(Window& w) = delete;
 	Window(const uint32 width, const uint32 height, const std::string title);
+	Window(Window& w) = delete;
 	~Window();
 	// Utility
 	void close();
 	void flush();
 	void setFramebufferSizeCallback(void(*func)(GLFWwindow* window, int32 width, int32 height));
+	void resetFramebufferSizeCallback();
 	void setCursorPosCallback(void(*func)(GLFWwindow* window, float64 xpos, float64 ypos));
 	GLFWwindow* getAddress();
 	void fullscreen();
@@ -52,7 +52,7 @@ private:
 	std::string title;
 	GLFWwindow* address;
 	int32 width, height;
-	bool fscreen, resizable;
+	bool fscreen, resizable, closed;
 };
 
 }
