@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include <api.hpp>
+#include <api/window.hpp>
 
 using namespace api;
 

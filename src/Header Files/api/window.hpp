@@ -1,5 +1,5 @@
-#ifndef API_H
-#define API_H
+#ifndef WINDOW_H
+#define WINDOW_H
 
 // Std includes
 #include <iostream>
@@ -9,48 +9,49 @@
 #include <glad/glad.h>
 #include <glfw/glfw3.h>
 
-// Local Includes
+// Local includes
+#include <util/types.h>
 
 namespace api {
 
-// Window api
+// Window API
 namespace window {
-	uint32_t getWindowCount();
+	uint32 getWindowCount();
 	void useCallouts(bool callouts);
 }
 class Window {
 public:
 	Window() { address = 0; width = 0; height = 0; title = ""; fscreen = false; }
 	Window(Window& w) = delete;
-	Window(const uint32_t width, const uint32_t height, const std::string title);
+	Window(const uint32 width, const uint32 height, const std::string title);
 	~Window();
 	// Utility
 	void close();
 	void flush();
-	void setFramebufferSizeCallback(void(*func)(GLFWwindow* window, int32_t width, int32_t height));
-	void setCursorPosCallback(void(*func)(GLFWwindow* window, double_t xpos, double_t ypos));
+	void setFramebufferSizeCallback(void(*func)(GLFWwindow* window, int32 width, int32 height));
+	void setCursorPosCallback(void(*func)(GLFWwindow* window, float64 xpos, float64 ypos));
 	GLFWwindow* getAddress();
 	void fullscreen();
 	void windowed();
 	bool isFullscreen();
 	bool isResizable();
 	bool shouldClose();
-	bool keyPressed(int16_t key);
-	bool keyTyped(int16_t key, bool& schedule);
-	bool mousePressed(int16_t button);
+	bool keyPressed(int16 key);
+	bool keyTyped(int16 key, bool& schedule);
+	bool mousePressed(int16 button);
 	void makeCurrentContext();
 	void releaseMouse();
 	void captureMouse();
 	void show();
 	void hide();
 	void setWindowResizable(bool resizeable);
-	void getSize(int32_t* width, int32_t* height);
+	void getSize(int32* width, int32* height);
 	void enableVSync();
 	void disableVSync();
 private:
 	std::string title;
 	GLFWwindow* address;
-	int32_t width, height;
+	int32 width, height;
 	bool fscreen, resizable;
 };
 

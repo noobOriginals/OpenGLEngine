@@ -8,9 +8,9 @@ set (CMAKE_RUNTIME_OUTPUT_DIRECTORY "${FullOutputDir}")
 
 set (SrcPath "${CMAKE_SOURCE_DIR}/src/Source Files")
 set (HeaderPath "${CMAKE_SOURCE_DIR}/src/Header Files")
-file (GLOB Sources CONFIGURE_DEPENDS "${SrcPath}/*.cpp" "${SrcPath}/*.c" "${HeaderPath}/*.hpp" "${HeaderPath}/*.h")
+file (GLOB_RECURSE Sources CONFIGURE_DEPENDS "${SrcPath}/*.cpp" "${SrcPath}/*.c" "${HeaderPath}/*.hpp" "${HeaderPath}/*.h")
 
-include_directories(${HeaderPath} ${SrcPath} $ENV{OPENGL_PATH})
+include_directories(${HeaderPath} $ENV{OPENGL_PATH})
 link_directories($ENV{OPENGL_PATH})
 
 link_libraries("opengl32" "glad" "glfw3")
