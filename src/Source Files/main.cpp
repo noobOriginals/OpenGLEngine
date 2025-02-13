@@ -5,9 +5,15 @@
 
 using namespace api;
 
-int main() {
+int32 main() {
+    Window window(800, 600, "GL Test");
+
     shader::useCallouts(true);
     Shader shader;
+
+    while (!window.shouldClose()) {
+        window.flush();
+    }
 
     return 0;
 }
