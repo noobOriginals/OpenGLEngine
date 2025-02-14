@@ -91,6 +91,10 @@ void Window::flush() {
 	glfwSwapBuffers(address);
 	glfwPollEvents();
 }
+void Window::setTitle(std::string title) {
+	glfwSetWindowTitle(address, title.c_str());
+	this->title = title;
+}
 void Window::setFramebufferSizeCallback(void(*func)(GLFWwindow* window, int32 width, int32 height)) {
 	glfwSetFramebufferSizeCallback(address, func);
 }

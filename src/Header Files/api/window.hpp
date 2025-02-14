@@ -25,6 +25,7 @@ public:
 	// Utility
 	void close();
 	void flush();
+	void setTitle(std::string title);
 	void setFramebufferSizeCallback(void(*func)(GLFWwindow* window, int32 width, int32 height));
 	void resetFramebufferSizeCallback();
 	void setCursorPosCallback(void(*func)(GLFWwindow* window, float64 xpos, float64 ypos));
@@ -42,7 +43,7 @@ public:
 	void captureMouse();
 	void show();
 	void hide();
-	void setWindowResizable(bool resizeable);
+	void setWindowResizable(bool resizable);
 	void getSize(int32* width, int32* height);
 	void enableVSync();
 	void disableVSync();
