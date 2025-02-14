@@ -7,7 +7,7 @@ using namespace api;
 
 int32 main() {
     Window window(800, 600, "GL Test");
-
+    
     shader::useCallouts(true);
     Shader shader;
 

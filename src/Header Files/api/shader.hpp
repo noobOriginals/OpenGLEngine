@@ -7,6 +7,7 @@
 
 // Lib includes
 #include <glad/glad.h>
+#include <glfw/glfw3.h>
 
 // Local includes
 #include <util/types.h>

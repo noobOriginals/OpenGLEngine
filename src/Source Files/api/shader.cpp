@@ -17,6 +17,11 @@ const char* def_fsource =
 "    color = vec4(1.0, 0.5, 0.1, 1.0);\n"
 "}\n";
 
+bool isGLFWInitialized() {
+    glfwGetKeyScancode(0);
+    return glfwGetError(nullptr) != GLFW_NOT_INITIALIZED;
+}
+
 namespace api {
 
 namespace shader {
@@ -33,11 +38,15 @@ namespace shader {
     }
 }
 Shader::Shader() {
+    if (!isGLFWInitialized()) throw std::runtime_error("No windows were created, so GLAD is probably not initialized.");
+    
     if (callouts) std::cout << "Shader: Creating shader nr. " << shaderCount << " with default sources.\n";
     compileShaders(def_vsource, def_fsource);
     shaderCount = shaderCount + 1;
 }
 Shader::Shader(std::string vsource, std::string fsource) {
+    if (!isGLFWInitialized()) throw std::runtime_error("No windows were created, so GLAD is probably not initialized.");
+    
     if (callouts) std::cout << "Shader: Creating shader nr. " << shaderCount << " with custom sources.\n";
     compileShaders(vsource.c_str(), fsource.c_str());
     shaderCount++;
