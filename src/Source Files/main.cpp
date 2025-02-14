@@ -4,6 +4,8 @@
 // #include <api/shader.hpp>
 #include <api/texture.hpp>
 
+#include <util/vec.h>
+
 using namespace api;
 
 int32 main() {
@@ -12,7 +14,7 @@ int32 main() {
     Window window(800, 600, "GL Test");
     Window window1(800, 600, "GL Test 1");
 
-    Texture tex("C:/Users/noob/Downloads/default.png");
+    // Texture tex("C:/Users/noob/Downloads/default.png");
     
     // shader::useCallouts(true);
     // Shader shader;
@@ -35,7 +37,7 @@ int32 main() {
         glClear(GL_COLOR_BUFFER_BIT);
         window1.flush();
     }
-    std::cout << "Average loop time is " << (float64)(gluGetMilliseconds() - startTime) / (1000 * itt) << " seconds\n";
+    std::cout << "\nAverage loop time is " << (float64)(gluGetMilliseconds() - startTime) / (1000 * itt) << " seconds in " << itt << " itterations\n\n";
 
     return 0;
 }

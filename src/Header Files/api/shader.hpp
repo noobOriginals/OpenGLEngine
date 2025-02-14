@@ -19,8 +19,8 @@ namespace shader {
 }
 class Shader {
 public:
-    Shader();
     Shader(Shader&) = delete;
+    Shader();
     Shader(std::string vsource, std::string fsource);
     ~Shader();
     // Utility

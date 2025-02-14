@@ -18,9 +18,13 @@ namespace texture {
 }
 class Texture {
 public:
+    Texture(Texture&) = delete;
     Texture();
     Texture(std::string filepath);
     ~Texture();
+    // Utility
+    void bind();
+    void unbind();
 private:
     void loadTexture(std::string filepath);
     uint32 address;
