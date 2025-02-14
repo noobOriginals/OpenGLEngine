@@ -1,6 +1,9 @@
 #ifndef VBO_HPP
 #define VBO_HPP
 
+// Std includes
+#include <iostream>
+
 // Local includes
 #include <util/glutils.h>
 
@@ -19,6 +22,9 @@ public:
     Vbo(void* vecs, uint64 size, int8 vecType, uint32 layoutNr);
     Vbo(int8 type, void* vecs, uint64 size, int8 vecType, uint32 layoutNr);
     ~Vbo();
+    // Utility
+    void bind();
+    void unbind();
 private:
     void bufferData(int8 type, void* vecs, uint64 size, uint32 layoutNr, int8 elements, uint64 offset);
     uint32 address;
