@@ -5,11 +5,8 @@
 #include <iostream>
 #include <string>
 
-// Lib includes
-#include <glad/glad.h>
-#include <glfw/glfw3.h>
-
 // Local includes
+#include <util/glutils.h>
 #include <util/types.h>
 
 namespace api {
@@ -18,6 +15,7 @@ namespace api {
 namespace window {
 	uint32 getWindowCount();
 	void useCallouts(bool callouts);
+	std::string getFocusedWindow();
 }
 class Window {
 public:
@@ -39,7 +37,7 @@ public:
 	bool keyPressed(int16 key);
 	bool keyTyped(int16 key, bool& schedule);
 	bool mousePressed(int16 button);
-	void makeCurrentContext();
+	void focus();
 	void releaseMouse();
 	void captureMouse();
 	void show();

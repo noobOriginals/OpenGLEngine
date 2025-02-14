@@ -5,11 +5,8 @@
 #include <iostream>
 #include <string>
 
-// Lib includes
-#include <glad/glad.h>
-#include <glfw/glfw3.h>
-
 // Local includes
+#include <util/glutils.h>
 #include <util/types.h>
 
 namespace api {
