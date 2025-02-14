@@ -2,6 +2,7 @@
 
 #include <api/window.hpp>
 // #include <api/shader.hpp>
+#include <api/texture.hpp>
 
 using namespace api;
 
@@ -10,6 +11,8 @@ int32 main() {
 
     Window window(800, 600, "GL Test");
     Window window1(800, 600, "GL Test 1");
+
+    Texture tex("C:/Users/noob/Downloads/default.png");
     
     // shader::useCallouts(true);
     // Shader shader;
