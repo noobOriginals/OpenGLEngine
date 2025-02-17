@@ -47,8 +47,8 @@ public:
     void setFloat4(float32 f0, float32 f1, float32 f2, float32 f3, std::string name);
     void setDouble4(float64 d0, float64 d1, float64 d2, float64 d3, std::string name);
 private:
-    uint32 address;
     void compileShaders(const char* vsource, const char* fsource);
+    uint32 address;
 };
 
 }
