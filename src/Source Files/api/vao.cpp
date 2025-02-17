@@ -10,13 +10,14 @@ namespace vao {
 	void useCallouts(bool value) { callouts = value; }
 }
 Vao::Vao() {
-    if (callouts) std::cout << "Creating VAO with nr. " << vaoCount << "\n";
+    if (callouts) std::cout << "Vao: Creating VAO with nr. " << vaoCount << "\n";
     glGenVertexArrays(1, &address);
     vaoCount++;
 }
 Vao::~Vao() {
     vaoCount--;
-    if (callouts) std::cout << "Destructing VAO with nr. " << vaoCount << "\n";
+    if (callouts) std::cout << "Vao: Destructing VAO with nr. " << vaoCount << "\n";
+    if (vaoCount < 1 && callouts) std::cout << "Vao: No VAO's remaining\n";
     glDeleteVertexArrays(1, &address);
 }
 /// Utility
