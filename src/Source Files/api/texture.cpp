@@ -31,6 +31,7 @@ Texture::~Texture() {
     if (callouts) std::cout << "Destructing texture that was loaded from " << filepath << "\n";
     textureCount--;
 }
+// Utility
 void Texture::bind() {
     glBindTexture(GL_TEXTURE_2D, address);
 }

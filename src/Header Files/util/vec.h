@@ -9,15 +9,12 @@
 
 typedef struct Vec2 {
     float32 x, y;
-    const int8 numElements = 2;
 } Vec2;
 typedef struct Vec3 {
     float32 x, y, z;
-    const int8 numElements = 3;
 } Vec3;
 typedef struct Vec4 {
     float32 x, y, z, w;
-    const int8 numElements = 4;
 } Vec4;
 
 Vec2 vecCreateVec2(float32 x, float32 y) {

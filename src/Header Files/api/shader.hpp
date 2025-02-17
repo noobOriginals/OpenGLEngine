@@ -25,6 +25,7 @@ public:
     ~Shader();
     // Utility
     void use();
+    void stopUse();
     // Set uniforms 1
     void setInt(int32 i, std::string name);
     void setUnsignedInt(uint32 ui, std::string name);
@@ -46,7 +47,7 @@ public:
     void setFloat4(float32 f0, float32 f1, float32 f2, float32 f3, std::string name);
     void setDouble4(float64 d0, float64 d1, float64 d2, float64 d3, std::string name);
 private:
-    uint32 address = 0;
+    uint32 address;
     void compileShaders(const char* vsource, const char* fsource);
 };
 

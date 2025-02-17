@@ -14,7 +14,7 @@ const char* def_fsource =
 "#version 330 core\n"
 "out vec4 color;\n"
 "void main() {\n"
-"    color = vec4(1.0, 0.5, 0.1, 1.0);\n"
+"    color = vec4(1.0, 0.66, 0.33, 1.0);\n"
 "}\n";
 
 namespace api {
@@ -49,12 +49,15 @@ Shader::Shader(std::string vsource, std::string fsource) {
 Shader::~Shader() {
     glDeleteProgram(address);
     shaderCount = shaderCount - 1;
-    if (callouts) std::cout << "Shader: Destroying shader nr. " << shaderCount << "\n";
+    if (callouts) std::cout << "Shader: Destructing shader nr. " << shaderCount << "\n";
     if (shaderCount < 1 && callouts) std::cout << "Shader: No shaders remaining\n";
 }
 // Utility
 void Shader::use() {
     glUseProgram(address);
+}
+void Shader::stopUse() {
+    glUseProgram(0);
 }
 
 // Private methods

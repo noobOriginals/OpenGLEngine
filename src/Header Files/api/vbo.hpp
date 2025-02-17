@@ -10,11 +10,16 @@
 namespace api {
 
 namespace vbo {
-    const int8 VBO = 0x1;
-    const int8 EBO = 0x2;
-    const int8 VEC2 = 0x3;
-    const int8 VEC3 = 0x4;
-    const int8 VEC4 = 0x5;
+    namespace type {
+        const int8 VBO = 0x0;
+        const int8 EBO = 0x1;
+        const int8 VEC2 = 0x2;
+        const int8 VEC3 = 0x3;
+        const int8 VEC4 = 0x4;
+    }
+
+    uint32 getVboCount();
+	void useCallouts(bool value);
 }
 class Vbo {
 public:
@@ -25,10 +30,12 @@ public:
     // Utility
     void bind();
     void unbind();
+
 private:
     void bufferData(int8 type, void* vecs, uint64 size, uint32 layoutNr, int8 elements, uint64 offset);
     uint32 address;
     int8 type;
+    void* vecs;
 };
 
 }
