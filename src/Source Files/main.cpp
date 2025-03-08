@@ -23,18 +23,18 @@ uint32 idx[6] = {
 int32 main() {
     window::useCallouts(true);
     Window window(800, 600, "GL Test");
-    
+
     shader::useCallouts(true);
     Shader shader;
 
     uint32 itt = 0;
     int64 startTime = gluGetMilliseconds();
     uint64 totalSecs = 0;
-    
+
     vao::useCallouts(true);
     vbo::useCallouts(true);
     Vao vao;
-    Vbo vbo(vecs, sizeof(vecs), vbo::type::VEC3);
+    Vbo vbo(vbo::type::VBO, vecs, sizeof(vecs), vbo::type::VEC3);
     Vbo ebo(vbo::type::EBO, idx, sizeof(idx), 0);
 
     vao.bind();
