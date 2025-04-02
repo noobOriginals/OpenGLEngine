@@ -15,9 +15,6 @@ Vbo::Vbo(void* vecs, uint64 size) {
     // Set buffer type
     type = type::VBO;
     this->type = type;
-    // Set vec type
-    if (vecType > type::VEC4 || vecType < type::VEC2) vecType = type::VEC3;
-    this->vecType = vecType;
     
     if (callouts) std::cout << "Vbo: Creating " << (type == type::VBO ? "VBO" : "EBO") << " with nr. " << vboCount << "\n";
 
@@ -32,9 +29,6 @@ Vbo::Vbo(int8 type, void* vecs, uint64 size) {
     // Set buffer type
     if (type > type::EBO) type = type::VBO;
     this->type = type;
-    // Set vec type
-    if (vecType > type::VEC4 || vecType < type::VEC2) vecType = type::VEC3;
-    this->vecType = vecType;
     
     if (callouts) std::cout << "Vbo: Creating " << (type == type::VBO ? "VBO" : "EBO") << " with nr. " << vboCount << "\n";
     
@@ -66,12 +60,12 @@ void Vbo::unbind() {
     }
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
-void Vbo::vertexAttribPointer(uint32 layoutNr, uint64 offset, int8 vecType) {
+void Vbo::vertexAttribPointer(uint32 layoutNr, uint64 offset, int8 vecType, int8 stride) {
     if (type == type::EBO) {
         if (callouts) std::cout << "Vbo: Trying to assign vertex attrib pointer to an EBO, which is not possible\n";
         return;
     }
-    vertexAttrib(layoutNr, vecType, offset);
+    vertexAttrib(layoutNr, vecType, stride, offset);
 }
 
 // Private mehtods
@@ -93,9 +87,9 @@ void Vbo::bufferData(void* vecs, uint64 size) {
     // Unbind buffder
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
-void Vbo::vertexAttrib(uint32 layoutNr, uint8 elements, uint64 offset) {
+void Vbo::vertexAttrib(uint32 layoutNr, uint8 elements, int8 stride, uint64 offset) {
     // Tell OpenGL how to use the data
-    glVertexAttribPointer(layoutNr, elements, GL_FLOAT, GL_FALSE, elements * sizeof(float32), (void*)offset);
+    glVertexAttribPointer(layoutNr, elements, GL_FLOAT, GL_FALSE, stride * sizeof(float32), (void*)offset);
     glEnableVertexAttribArray(layoutNr);
 }
 

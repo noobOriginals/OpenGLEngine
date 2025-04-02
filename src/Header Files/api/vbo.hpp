@@ -30,13 +30,12 @@ public:
     // Utility
     void bind();
     void unbind();
-    void vertexAttribPointer(uint32 layoutNr, uint64 offset, int8 vecType);
+    void vertexAttribPointer(uint32 layoutNr, uint64 offset, int8 vecType, int8 stride);
 private:
     void bufferData(void* vecs, uint64 size);
-    void vertexAttrib(uint32 layoutNr, uint8 elements, uint64 offset);
+    void vertexAttrib(uint32 layoutNr, uint8 elements, int8 stride, uint64 offset);
     uint32 address;
     int8 type;
-    int8 vecType;
 };
 
 }

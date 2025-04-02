@@ -40,8 +40,8 @@ int32 main() {
 
     vao.bind();
     vbo.bind();
-    vbo.vertexAttribPointer(0, 0, vbo::type::VEC3);
-    vbo.vertexAttribPointer(1, offsetof(Point3D, texCoords), vbo::type::VEC2);
+    vbo.vertexAttribPointer(0, 0, vbo::type::VEC3, 5);
+    vbo.vertexAttribPointer(1, offsetof(Point3D, texCoords), vbo::type::VEC2, 5);
     vao.unbind();
     vbo.unbind();
 
