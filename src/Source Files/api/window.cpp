@@ -172,5 +172,11 @@ void Window::enableVSync() {
 void Window::disableVSync() {
 	glfwSwapInterval(0);
 }
+void Window::drawWireframe() {
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+}
+void Window::drawFilled() {
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+}
 
 }

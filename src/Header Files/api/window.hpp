@@ -47,6 +47,8 @@ public:
 	void getSize(int32* width, int32* height);
 	void enableVSync();
 	void disableVSync();
+	void drawWireframe();
+	void drawFilled();
 private:
 	std::string title;
 	GLFWwindow* address;

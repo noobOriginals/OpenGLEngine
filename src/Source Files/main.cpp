@@ -10,7 +10,7 @@
 using namespace api;
 
 Vec3 vecs[4] = {
-    vecCreateVec3(0.5f, 0.5f, 0.0f),
+    vecCreateVec3(0.5f, 0.5f, 0.0f), 
     vecCreateVec3(0.5f, -0.5f, 0.0f),
     vecCreateVec3(-0.5f, -0.5f, 0.0f),
     vecCreateVec3(-0.5f, 0.5f, 0.0f),
@@ -45,18 +45,18 @@ int32 main() {
 
     bool typeLSchedule = false;
     bool wireframeEnabled = false;
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    window.drawFilled();
     while (!window.shouldClose()) {
         itt++;
 
         window.focus();
         if (window.keyTyped(GLFW_KEY_L, typeLSchedule)) {
             if (wireframeEnabled) {
-                glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+                window.drawFilled();
                 wireframeEnabled = false;
             }
             else {
-                glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+                window.drawWireframe();
                 wireframeEnabled = true;
             }
         }
