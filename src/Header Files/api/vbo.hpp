@@ -24,15 +24,15 @@ namespace vbo {
 class Vbo {
 public:
     Vbo(Vbo&) = delete;
-    Vbo(void* vecs, uint64 size, int8 vecType);
-    Vbo(int8 type, void* vecs, uint64 size, int8 vecType);
+    Vbo(void* vecs, uint64 size);
+    Vbo(int8 type, void* vecs, uint64 size);
     ~Vbo();
     // Utility
     void bind();
     void unbind();
-    void vertexAttribPointer(uint32 layoutNr, uint64 offset);
+    void vertexAttribPointer(uint32 layoutNr, uint64 offset, int8 vecType);
 private:
-    void bufferData(int8 type, void* vecs, uint64 size);
+    void bufferData(void* vecs, uint64 size);
     void vertexAttrib(uint32 layoutNr, uint8 elements, uint64 offset);
     uint32 address;
     int8 type;

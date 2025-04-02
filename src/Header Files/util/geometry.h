@@ -8,7 +8,7 @@
 typedef struct Point2D {
     Vec2 point;
     Vec2 texCoords;
-} Point3D;
+} Point2D;
 typedef struct Point3D {
     Vec3 point;
     Vec2 texCoords;

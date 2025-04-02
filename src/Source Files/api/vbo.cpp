@@ -11,7 +11,7 @@ namespace vbo {
     uint32 getVboCount() { return vboCount; }
 	void useCallouts(bool value) { callouts = value; }
 }
-Vbo::Vbo(void* vecs, uint64 size, int8 vecType) {
+Vbo::Vbo(void* vecs, uint64 size) {
     // Set buffer type
     type = type::VBO;
     this->type = type;
@@ -24,11 +24,11 @@ Vbo::Vbo(void* vecs, uint64 size, int8 vecType) {
     // Create GL Buffer
     glGenBuffers(1, &address);
     // Link pointers to buffers
-    bufferData(vecType, vecs, size);
+    bufferData(vecs, size);
 
     vboCount++;
 }
-Vbo::Vbo(int8 type, void* vecs, uint64 size, int8 vecType) {
+Vbo::Vbo(int8 type, void* vecs, uint64 size) {
     // Set buffer type
     if (type > type::EBO) type = type::VBO;
     this->type = type;
@@ -41,7 +41,7 @@ Vbo::Vbo(int8 type, void* vecs, uint64 size, int8 vecType) {
     // Create GL Buffer
     glGenBuffers(1, &address);
     // Link pointers to buffers
-    bufferData(vecType, vecs, size);
+    bufferData(vecs, size);
 
     vboCount++;
 }
@@ -66,7 +66,7 @@ void Vbo::unbind() {
     }
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
-void Vbo::vertexAttribPointer(uint32 layoutNr, uint64 offset) {
+void Vbo::vertexAttribPointer(uint32 layoutNr, uint64 offset, int8 vecType) {
     if (type == type::EBO) {
         if (callouts) std::cout << "Vbo: Trying to assign vertex attrib pointer to an EBO, which is not possible\n";
         return;
@@ -75,7 +75,7 @@ void Vbo::vertexAttribPointer(uint32 layoutNr, uint64 offset) {
 }
 
 // Private mehtods
-void Vbo::bufferData(int8 type, void* vecs, uint64 size) {
+void Vbo::bufferData(void* vecs, uint64 size) {
     if (type == type::VBO) {
         // Bind buffer
         glBindBuffer(GL_ARRAY_BUFFER, address);

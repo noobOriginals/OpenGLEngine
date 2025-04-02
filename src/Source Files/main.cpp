@@ -10,7 +10,7 @@
 
 using namespace api;
 
-Point3D points[4] = {
+Point3D vecs[4] = {
     geoCreatePoint3D(0.5f, 0.5f, 0.0f, 1.0f, 1.0f), 
     geoCreatePoint3D(0.5f, -0.5f, 0.0f, 1.0f, 0.0f),
     geoCreatePoint3D(-0.5f, -0.5f, 0.0f, 0.0f, 0.0f),
@@ -35,12 +35,13 @@ int32 main() {
     vao::useCallouts(true);
     vbo::useCallouts(true);
     Vao vao;
-    Vbo vbo(vbo::type::VBO, points, sizeof(points), vbo::type::VEC3);
-    Vbo ebo(vbo::type::EBO, idx, sizeof(idx), 0);
+    Vbo vbo(vbo::type::VBO, vecs, sizeof(vecs));
+    Vbo ebo(vbo::type::EBO, idx, sizeof(idx));
 
     vao.bind();
     vbo.bind();
-    vbo.vertexAttribPointer(0, 0);
+    vbo.vertexAttribPointer(0, 0, vbo::type::VEC3);
+    vbo.vertexAttribPointer(1, offsetof(Point3D, texCoords), vbo::type::VEC2);
     vao.unbind();
     vbo.unbind();
 
