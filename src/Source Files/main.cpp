@@ -6,14 +6,15 @@
 #include <api/vbo.hpp>
 
 #include <util/vec.h>
+#include <util/geometry.h>
 
 using namespace api;
 
-Vec3 vecs[4] = {
-    vecCreateVec3(0.5f, 0.5f, 0.0f), 
-    vecCreateVec3(0.5f, -0.5f, 0.0f),
-    vecCreateVec3(-0.5f, -0.5f, 0.0f),
-    vecCreateVec3(-0.5f, 0.5f, 0.0f),
+Point3D points[4] = {
+    geoCreatePoint3D(0.5f, 0.5f, 0.0f, 1.0f, 1.0f), 
+    geoCreatePoint3D(0.5f, -0.5f, 0.0f, 1.0f, 0.0f),
+    geoCreatePoint3D(-0.5f, -0.5f, 0.0f, 0.0f, 0.0f),
+    geoCreatePoint3D(-0.5f, 0.5f, 0.0f, 0.0f, 1.0f),
 };
 uint32 idx[6] = {
     0, 1, 2,
@@ -34,7 +35,7 @@ int32 main() {
     vao::useCallouts(true);
     vbo::useCallouts(true);
     Vao vao;
-    Vbo vbo(vbo::type::VBO, vecs, sizeof(vecs), vbo::type::VEC3);
+    Vbo vbo(vbo::type::VBO, points, sizeof(points), vbo::type::VEC3);
     Vbo ebo(vbo::type::EBO, idx, sizeof(idx), 0);
 
     vao.bind();
