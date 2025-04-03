@@ -11,7 +11,7 @@
 using namespace api;
 
 Point3D vecs[4] = {
-    geoCreatePoint3D(0.5f, 0.5f, 0.0f, 1.0f, 1.0f), 
+    geoCreatePoint3D(0.5f, 0.5f, 0.0f, 1.0f, 1.0f),
     geoCreatePoint3D(0.5f, -0.5f, 0.0f, 1.0f, 0.0f),
     geoCreatePoint3D(-0.5f, -0.5f, 0.0f, 0.0f, 0.0f),
     geoCreatePoint3D(-0.5f, 0.5f, 0.0f, 0.0f, 1.0f),
@@ -35,13 +35,13 @@ int32 main() {
     vao::useCallouts(true);
     vbo::useCallouts(true);
     Vao vao;
-    Vbo vbo(vbo::type::VBO, vecs, sizeof(vecs));
-    Vbo ebo(vbo::type::EBO, idx, sizeof(idx));
+    Vbo vbo(vbo::type::VBO, vecs, sizeof(vecs), 5);
+    Vbo ebo(vbo::type::EBO, idx, sizeof(idx), 0);
 
     vao.bind();
     vbo.bind();
-    vbo.vertexAttribPointer(0, 0, vbo::type::VEC3, 5);
-    vbo.vertexAttribPointer(1, offsetof(Point3D, texCoords), vbo::type::VEC2, 5);
+    vbo.vertexAttribPointer(0, 0, vbo::type::VEC3);
+    vbo.vertexAttribPointer(1, VEC_SIZEOF_VEC3, vbo::type::VEC2);
     vao.unbind();
     vbo.unbind();
 

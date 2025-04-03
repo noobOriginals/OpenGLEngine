@@ -11,12 +11,14 @@ namespace vbo {
     uint32 getVboCount() { return vboCount; }
 	void useCallouts(bool value) { callouts = value; }
 }
-Vbo::Vbo(void* vecs, uint64 size) {
+Vbo::Vbo(void* vecs, uint64 size, int8 stride) {
     // Set buffer type
     type = type::VBO;
     this->type = type;
-    
+
     if (callouts) std::cout << "Vbo: Creating " << (type == type::VBO ? "VBO" : "EBO") << " with nr. " << vboCount << "\n";
+
+    this->stride = stride;
 
     // Create GL Buffer
     glGenBuffers(1, &address);
@@ -25,13 +27,15 @@ Vbo::Vbo(void* vecs, uint64 size) {
 
     vboCount++;
 }
-Vbo::Vbo(int8 type, void* vecs, uint64 size) {
+Vbo::Vbo(int8 type, void* vecs, uint64 size, int8 stride) {
     // Set buffer type
     if (type > type::EBO) type = type::VBO;
     this->type = type;
-    
+
     if (callouts) std::cout << "Vbo: Creating " << (type == type::VBO ? "VBO" : "EBO") << " with nr. " << vboCount << "\n";
-    
+
+    this->stride = stride;
+
     // Create GL Buffer
     glGenBuffers(1, &address);
     // Link pointers to buffers
@@ -60,7 +64,7 @@ void Vbo::unbind() {
     }
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
-void Vbo::vertexAttribPointer(uint32 layoutNr, uint64 offset, int8 vecType, int8 stride) {
+void Vbo::vertexAttribPointer(uint32 layoutNr, uint64 offset, int8 vecType) {
     if (type == type::EBO) {
         if (callouts) std::cout << "Vbo: Trying to assign vertex attrib pointer to an EBO, which is not possible\n";
         return;

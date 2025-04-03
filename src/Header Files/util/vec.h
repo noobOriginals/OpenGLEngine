@@ -2,6 +2,12 @@
 #define VEC_H
 
 #define VEC_PI 3.14159265358979323846264338327950288
+#define VEC_SIZEOF_VEC2 8
+#define VEC_SIZEOF_VEC3 12
+#define VEC_SIZEOF_VEC4 16
+#define VEC_SIZEOF_MAT2 16
+#define VEC_SIZEOF_MAT3 36
+#define VEC_SIZEOF_MAT4 64
 
 // Std includes
 #include <stdio.h>

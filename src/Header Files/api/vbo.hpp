@@ -24,18 +24,19 @@ namespace vbo {
 class Vbo {
 public:
     Vbo(Vbo&) = delete;
-    Vbo(void* vecs, uint64 size);
-    Vbo(int8 type, void* vecs, uint64 size);
+    Vbo(void* vecs, uint64 size, int8 stride);
+    Vbo(int8 type, void* vecs, uint64 size, int8 stride);
     ~Vbo();
     // Utility
     void bind();
     void unbind();
-    void vertexAttribPointer(uint32 layoutNr, uint64 offset, int8 vecType, int8 stride);
+    void vertexAttribPointer(uint32 layoutNr, uint64 offset, int8 vecType);
 private:
     void bufferData(void* vecs, uint64 size);
     void vertexAttrib(uint32 layoutNr, uint8 elements, int8 stride, uint64 offset);
     uint32 address;
     int8 type;
+    int8 stride;
 };
 
 }
