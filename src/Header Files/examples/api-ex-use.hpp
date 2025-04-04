@@ -9,6 +9,7 @@
 #include <api/texture.hpp>
 
 // API Util Includes
+#include <util/types.h>
 #include <util/vec.h>
 #include <util/geometry.h>
 
