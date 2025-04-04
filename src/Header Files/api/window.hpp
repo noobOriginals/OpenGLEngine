@@ -38,6 +38,7 @@ public:
 	bool keyPressed(int16 key);
 	bool keyTyped(int16 key, bool& schedule);
 	bool mousePressed(int16 button);
+    bool isWireframeEnabled();
 	void focus();
 	void releaseMouse();
 	void captureMouse();
@@ -53,7 +54,7 @@ private:
 	std::string title;
 	GLFWwindow* address;
 	int32 width, height;
-	bool fscreen, resizable, closed;
+	bool fscreen, resizable, closed, wireframe;
 };
 
 }

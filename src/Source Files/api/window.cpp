@@ -24,8 +24,9 @@ Window::Window(const uint32 width, const uint32 height, const std::string title)
 	fscreen = false;
 	resizable = true;
 	closed = false;
+    wireframe = false;
 	if (callouts) std::cout << "Window: Creating window \"" << title << "\"\n";
-	
+
 	// Prepare GLFW for window creation
 	if (glfwTerminated) {
 		glfwInit();
@@ -34,7 +35,7 @@ Window::Window(const uint32 width, const uint32 height, const std::string title)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	
+
 	// Create window and associate pointer
 	address = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
 	if (address == nullptr) throw std::runtime_error("Window: Failed to create window " + title + "\n");
@@ -45,13 +46,14 @@ Window::Window(const uint32 width, const uint32 height, const std::string title)
 
     // First GL Call
     glViewport(0, 0, width, height);
-	
+
 	// Set Window parameters
 	glfwSetFramebufferSizeCallback(address, def_framebuffer_size_callback);
 	glfwSwapInterval(1);
 	glfwSetInputMode(address, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 	glfwShowWindow(address);
-	
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
 	windowCount++;
 }
 Window::~Window() {
@@ -143,6 +145,9 @@ bool Window::keyTyped(int16 key, bool& schedule) {
 bool Window::mousePressed(int16 button) {
 	return (glfwGetMouseButton(address, button) == GLFW_PRESS);
 }
+bool Window::isWireframeEnabled() {
+    return wireframe;
+}
 void Window::focus() {
 	glfwMakeContextCurrent(address);
 	focusedWindow = title;
@@ -174,9 +179,11 @@ void Window::disableVSync() {
 }
 void Window::drawWireframe() {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    wireframe = true;
 }
 void Window::drawFilled() {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    wireframe = false;
 }
 
 }
