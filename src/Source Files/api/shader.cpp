@@ -129,7 +129,7 @@ void Shader::compileShaders(const char* vsource, const char* fsource) {
         glGetShaderInfoLog(vshader, 512, nullptr, infoLog);
         std::cout << "Shader: Failed to compile vertex shader:\n" << infoLog << "\n";
     }
-    if (callouts) std::cout << "Shader: Successfully compiled vertex shader\n";
+    if (callouts && success) std::cout << "Shader: Successfully compiled vertex shader\n";
 
     // Compile fragment shader
     uint32 fshader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -141,7 +141,7 @@ void Shader::compileShaders(const char* vsource, const char* fsource) {
         glGetShaderInfoLog(fshader, 512, nullptr, infoLog);
         std::cout << "Shader: Failed to compile fragment shader:\n" << infoLog << "\n";
     }
-    if (callouts) std::cout << "Shader: Successfully compiled fragment shader\n";
+    if (callouts && success) std::cout << "Shader: Successfully compiled fragment shader\n";
 
     // Create program
     address = glCreateProgram();

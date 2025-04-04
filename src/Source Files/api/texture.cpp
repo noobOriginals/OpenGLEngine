@@ -57,7 +57,7 @@ void Texture::loadTexture(std::string filepath) {
     int32 format = GL_RED;
     if (nrChannels == 3) format = GL_RGB;
     if (nrChannels == 4) format = GL_RGBA;
-    glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, format, GL_UNSIGNED_BYTE, data);
     glGenerateMipmap(GL_TEXTURE_2D);
 
     // Discard unused resources

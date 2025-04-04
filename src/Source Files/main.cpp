@@ -4,6 +4,7 @@
 #include <api/shader.hpp>
 #include <api/vao.hpp>
 #include <api/vbo.hpp>
+#include <api/texture.hpp>
 
 #include <util/vec.h>
 #include <util/geometry.h>
@@ -24,9 +25,13 @@ uint32 idx[6] = {
 int32 main() {
     window::useCallouts(true);
     Window window(800, 600, "GL Test");
+    window.enableVSync();
 
     shader::useCallouts(true);
-    Shader shader;
+    Shader shader(shader::loadSourceFromFile("vertShader.glsl"), shader::loadSourceFromFile("fragShader.glsl"));
+    shader.setInt("image", 0);
+
+    Texture tex("tex.png");
 
     uint32 itt = 0;
     int64 startTime = gluGetMilliseconds();
@@ -69,6 +74,8 @@ int32 main() {
         shader.use();
         vao.bind();
         ebo.bind();
+        glActiveTexture(GL_TEXTURE0);
+        tex.bind();
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         shader.stopUse();
         vao.unbind();
