@@ -9,9 +9,9 @@
 #include <api/texture.hpp>
 
 // API Util Includes
+#include <util/geometry.h>
 #include <util/types.h>
 #include <util/vec.h>
-#include <util/geometry.h>
 
 // Using 'api namespace for easier use'
 using namespace api;
@@ -31,7 +31,7 @@ uint32 idx[6] = {
     3, 0, 2, // Second triangle
 };
 
-int run() {
+int32 run() {
     // Create a window
     // Tell the window API to use callouts
     window::useCallouts(true);
