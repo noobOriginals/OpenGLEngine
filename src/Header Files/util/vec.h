@@ -475,4 +475,80 @@ Vec3 vecCrossVec3(Vec3 v0, Vec3 v1) {
     return vec;
 }
 
+// Matrix multiplication
+Vec2 vecDotMV2(Mat2 m, Vec2 v) {
+    Vec2 vec;
+    vec.x = m.e[0][0] * v.x + m.e[0][1] * v.y;
+    vec.y = m.e[1][0] * v.x + m.e[1][1] * v.y;
+    return vec;
+}
+Vec3 vecDotMV3(Mat3 m, Vec3 v) {
+    Vec3 vec;
+    vec.x = m.e[0][0] * v.x + m.e[0][1] * v.y + m.e[0][2] * v.z;
+    vec.y = m.e[1][0] * v.x + m.e[1][1] * v.y + m.e[1][2] * v.z;
+    vec.z = m.e[2][0] * v.x + m.e[2][1] * v.y + m.e[2][2] * v.z;
+    return vec;
+}
+Vec4 vecDomMV4(Mat3 m, Vec4 v) {
+    Vec4 vec;
+    vec.x = m.e[0][0] * v.x + m.e[0][1] * v.y + m.e[0][2] * v.z + m.e[0][3] * v.w;
+    vec.y = m.e[1][0] * v.x + m.e[1][1] * v.y + m.e[1][2] * v.z + m.e[1][3] * v.w;
+    vec.z = m.e[2][0] * v.x + m.e[2][1] * v.y + m.e[2][2] * v.z + m.e[2][3] * v.w;
+    vec.w = m.e[3][0] * v.x + m.e[3][1] * v.y + m.e[3][2] * v.z + m.e[3][3] * v.w;
+    return vec;
+}
+Mat2 vecDotMat2(Mat2 m0, Mat2 m1) {
+    Mat2 m;
+    int32 r, c;
+    // First row
+    r = 0; c = 0; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c];
+    r = 0; c = 1; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c];
+    // Second row
+    r = 1; c = 0; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c];
+    r = 1; c = 1; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c];
+    return m;
+}
+Mat3 vecDotMat3(Mat3 m0, Mat3 m1) {
+    Mat3 m;
+    int32 r, c;
+    // First row
+    r = 0; c = 0; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c] + m0.e[r][2] * m1.e[2][c];
+    r = 0; c = 1; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c] + m0.e[r][2] * m1.e[2][c];
+    r = 0; c = 2; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c] + m0.e[r][2] * m1.e[2][c];
+    // Second row
+    r = 1; c = 0; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c] + m0.e[r][2] * m1.e[2][c];
+    r = 1; c = 1; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c] + m0.e[r][2] * m1.e[2][c];
+    r = 1; c = 2; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c] + m0.e[r][2] * m1.e[2][c];
+    // Third row
+    r = 2; c = 0; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c] + m0.e[r][2] * m1.e[2][c];
+    r = 2; c = 1; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c] + m0.e[r][2] * m1.e[2][c];
+    r = 2; c = 2; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c] + m0.e[r][2] * m1.e[2][c];
+    return m;
+}
+Mat4 vecDotMat4(Mat4 m0, Mat4 m1) {
+    Mat4 m;
+    int32 r, c;
+    // First row
+    r = 0; c = 0; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c] + m0.e[r][2] * m1.e[2][c] + m0.e[r][3] * m1.e[3][c];
+    r = 0; c = 1; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c] + m0.e[r][2] * m1.e[2][c] + m0.e[r][3] * m1.e[3][c];
+    r = 0; c = 2; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c] + m0.e[r][2] * m1.e[2][c] + m0.e[r][3] * m1.e[3][c];
+    r = 0; c = 3; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c] + m0.e[r][2] * m1.e[2][c] + m0.e[r][3] * m1.e[3][c];
+    // Second row
+    r = 1; c = 0; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c] + m0.e[r][2] * m1.e[2][c] + m0.e[r][3] * m1.e[3][c];
+    r = 1; c = 1; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c] + m0.e[r][2] * m1.e[2][c] + m0.e[r][3] * m1.e[3][c];
+    r = 1; c = 2; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c] + m0.e[r][2] * m1.e[2][c] + m0.e[r][3] * m1.e[3][c];
+    r = 1; c = 3; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c] + m0.e[r][2] * m1.e[2][c] + m0.e[r][3] * m1.e[3][c];
+    // Third row
+    r = 2; c = 0; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c] + m0.e[r][2] * m1.e[2][c] + m0.e[r][3] * m1.e[3][c];
+    r = 2; c = 1; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c] + m0.e[r][2] * m1.e[2][c] + m0.e[r][3] * m1.e[3][c];
+    r = 2; c = 2; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c] + m0.e[r][2] * m1.e[2][c] + m0.e[r][3] * m1.e[3][c];
+    r = 2; c = 3; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c] + m0.e[r][2] * m1.e[2][c] + m0.e[r][3] * m1.e[3][c];
+    // Fourth row
+    r = 3; c = 0; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c] + m0.e[r][2] * m1.e[2][c] + m0.e[r][3] * m1.e[3][c];
+    r = 3; c = 1; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c] + m0.e[r][2] * m1.e[2][c] + m0.e[r][3] * m1.e[3][c];
+    r = 3; c = 2; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c] + m0.e[r][2] * m1.e[2][c] + m0.e[r][3] * m1.e[3][c];
+    r = 3; c = 3; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c] + m0.e[r][2] * m1.e[2][c] + m0.e[r][3] * m1.e[3][c];
+    return m;
+}
+
 #endif
