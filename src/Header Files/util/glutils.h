@@ -1,6 +1,10 @@
 #ifndef GLUTILS_H
 #define GLUTILS_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // Std includes
 #include <time.h>
 
@@ -18,5 +22,9 @@ inline int32 gluIsGLFWInitialized() {
     glfwGetKeyScancode(0);
     return glfwGetError(NULL) != GLFW_NOT_INITIALIZED;
 }
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

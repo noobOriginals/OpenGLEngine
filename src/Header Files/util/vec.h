@@ -1,6 +1,10 @@
 #ifndef VEC_H
 #define VEC_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define VEC_PI 3.14159265358979323846264338327950288
 #define VEC_SIZEOF_VEC2 8
 #define VEC_SIZEOF_VEC3 12
@@ -117,5 +121,9 @@ Mat3 vecTranslationMat3(float32 tx, float32 ty);
 Mat4 vecTranslationMat4(float32 tx, float32 ty, float32 tz);
 Mat4 vecLookAtMat4(Vec3 pos, Vec3 target, Vec3 up);
 Mat4 vecOrthoMat4();
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
