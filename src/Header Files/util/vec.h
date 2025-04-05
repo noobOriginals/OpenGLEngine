@@ -134,43 +134,6 @@ void vecPrintMat4(Mat4 m) {
     printf("%f %f %f %f\n", m.e[2][0], m.e[2][1], m.e[2][2], m.e[2][3]);
     printf("%f %f %f %f\n\n", m.e[3][0], m.e[3][1], m.e[3][2], m.e[3][3]);
 }
-// Matrix creation methods
-Mat2 vecRotationMat2(float64 angleInDeg) {
-    float64 angle = angleInDeg * VEC_PI / 180.0f;
-    float32 sinus = sin(angle);
-    float32 cosinus = cos(angle);
-    Mat2 m;
-    // First row
-    m.e[0][0] = cosinus;
-    m.e[0][1] = -sinus;
-    // Second row
-    m.e[1][0] = sinus;
-    m.e[1][1] = cosinus;
-    return m;
-}
-Mat3 vecRotationMat3(float64 angleInDeg, float64 x, float64 y, float64 z) {
-    float64 angle = angleInDeg * VEC_PI / 180.0f;
-    float32 xsin = sin(angle * x);
-    float32 ysin = sin(angle * y);
-    float32 zsin = sin(angle * z);
-    float32 xcos = cos(angle * x);
-    float32 ycos = cos(angle * y);
-    float32 zcos = cos(angle * z);
-    Mat3 m;
-    // First row
-    m.e[0][0] = zcos * ycos;
-    m.e[0][1] = zcos * ysin * xsin - zsin * xcos;
-    m.e[0][2] = zcos * ysin * xcos + zsin * xsin;
-    // Second row
-    m.e[1][0] = zsin * ycos;
-    m.e[1][1] = zsin * ysin * xsin + zcos * xcos;
-    m.e[1][2] = zsin * ysin * xcos - zcos * xsin;
-    // Thrid row
-    m.e[2][0] = -ysin;
-    m.e[2][1] = ycos * xsin;
-    m.e[2][2] = ycos * xcos;
-    return m;
-}
 // Transformations
 // Cast
 Vec2 vecCastVec3to2(Vec3 v) {
@@ -549,6 +512,119 @@ Mat4 vecDotMat4(Mat4 m0, Mat4 m1) {
     r = 3; c = 2; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c] + m0.e[r][2] * m1.e[2][c] + m0.e[r][3] * m1.e[3][c];
     r = 3; c = 3; m.e[r][c] = m0.e[r][0] * m1.e[0][c] + m0.e[r][1] * m1.e[1][c] + m0.e[r][2] * m1.e[2][c] + m0.e[r][3] * m1.e[3][c];
     return m;
+}
+// Matrix creation methods
+Mat2 vecRotationMat2(float64 angleInDeg) {
+    float64 angle = angleInDeg * VEC_PI / 180.0f;
+    float32 sinus = sin(angle);
+    float32 cosinus = cos(angle);
+    Mat2 m;
+    // First row
+    m.e[0][0] = cosinus;
+    m.e[0][1] = -sinus;
+    // Second row
+    m.e[1][0] = sinus;
+    m.e[1][1] = cosinus;
+    return m;
+}
+Mat3 vecRotationMat3(float64 angleInDeg, float64 x, float64 y, float64 z) {
+    float64 angle = angleInDeg * VEC_PI / 180.0f;
+    float32 xsin = sin(angle * x);
+    float32 ysin = sin(angle * y);
+    float32 zsin = sin(angle * z);
+    float32 xcos = cos(angle * x);
+    float32 ycos = cos(angle * y);
+    float32 zcos = cos(angle * z);
+    Mat3 m;
+    // First row
+    m.e[0][0] = zcos * ycos;
+    m.e[0][1] = zcos * ysin * xsin - zsin * xcos;
+    m.e[0][2] = zcos * ysin * xcos + zsin * xsin;
+    // Second row
+    m.e[1][0] = zsin * ycos;
+    m.e[1][1] = zsin * ysin * xsin + zcos * xcos;
+    m.e[1][2] = zsin * ysin * xcos - zcos * xsin;
+    // Thrid row
+    m.e[2][0] = -ysin;
+    m.e[2][1] = ycos * xsin;
+    m.e[2][2] = ycos * xcos;
+    return m;
+}
+Mat4 vecRotaionMat4(float64 angleInDeg, float64 x, float64 y, float64 z) {
+    float64 angle = angleInDeg * VEC_PI / 180.0f;
+    float32 xsin = sin(angle * x);
+    float32 ysin = sin(angle * y);
+    float32 zsin = sin(angle * z);
+    float32 xcos = cos(angle * x);
+    float32 ycos = cos(angle * y);
+    float32 zcos = cos(angle * z);
+    Mat4 m = vecCreateMat4(1.0f);
+    // First row
+    m.e[0][0] = zcos * ycos;
+    m.e[0][1] = zcos * ysin * xsin - zsin * xcos;
+    m.e[0][2] = zcos * ysin * xcos + zsin * xsin;
+    // Second row
+    m.e[1][0] = zsin * ycos;
+    m.e[1][1] = zsin * ysin * xsin + zcos * xcos;
+    m.e[1][2] = zsin * ysin * xcos - zcos * xsin;
+    // Thrid row
+    m.e[2][0] = -ysin;
+    m.e[2][1] = ycos * xsin;
+    m.e[2][2] = ycos * xcos;
+    return m;
+}
+Mat2 vecScaleMat2(float32 sx, float32 sy) {
+    Mat2 m = vecCreateMat2(sx);
+    m.e[1][1] = sy;
+    return m;
+}
+Mat3 vecScaleMat3(float32 sx, float32 sy, float32 sz) {
+    Mat3 m = vecCreateMat3(sx);
+    m.e[1][1] = sy;
+    m.e[2][2] = sz;
+    return m;
+}
+Mat4 vecScaleMat4(float32 sx, float32 sy, float32 sz) {
+    Mat4 m = vecCreateMat4(1.0f);
+    m.e[0][0] = sx;
+    m.e[1][1] = sy;
+    m.e[2][2] = sz;
+    return m;
+}
+Mat3 vecTranslationMat3(float32 tx, float32 ty) {
+    Mat3 m = vecCreateMat3(1.0f);
+    m.e[0][2] = tx;
+    m.e[1][2] = ty;
+    return m;
+}
+Mat4 vecTranslationMat4(float32 tx, float32 ty, float32 tz) {
+    Mat4 m = vecCreateMat4(1.0f);
+    m.e[0][3] = tx;
+    m.e[1][3] = ty;
+    m.e[2][3] = tz;
+    return m;
+}
+Mat4 vecLookAtMat4(Vec3 pos, Vec3 target, Vec3 up) {
+    Vec3 dir = vecAddVec3(pos, vecInverseVec3(target));
+    Vec3 right = vecCrossVec3(up, dir);
+    Mat4 l = vecCreateMat4(1.0f);
+    Mat4 r = vecTranslationMat4(-pos.x, -pos.y, -pos.z);
+    // Right vec
+    l.e[0][0] = right.x;
+    l.e[0][1] = right.y;
+    l.e[0][2] = right.z;
+    // Up vec
+    l.e[1][0] = up.x;
+    l.e[1][1] = up.y;
+    l.e[1][2] = up.z;
+    // Dir vec
+    l.e[2][0] = dir.x;
+    l.e[2][1] = dir.y;
+    l.e[2][2] = dir.z;
+    return vecDotMat4(l, r);
+}
+Mat4 vecOrthoMat4() {
+
 }
 
 #endif
