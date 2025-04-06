@@ -14,13 +14,15 @@ namespace camera2D {
 Camera2D::Camera2D(Vec2 pos) {
     this->pos = pos;
     transform = vecLookAtMat3(pos);
+
+    camera2D::cameraCount++;
+}
+Camera2D::~Camera2D() {
+    camera2D::cameraCount--;
 }
 // Utility
 Mat3 Camera2D::getViewMatrix() {
     return transform;
-}
-float32* Camera2D::getViewMatrixPtr() {
-    return vecPtrMat3(transform);
 }
 Vec2 Camera2D::getPos() {
     return pos;

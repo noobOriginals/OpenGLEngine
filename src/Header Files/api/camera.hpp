@@ -21,7 +21,6 @@ public:
     ~Camera2D();
     // Utility
     Mat3 getViewMatrix();
-    float32* getViewMatrixPtr();
     Vec2 getPos();
     void move(float32 mx, float32 my);
     void move(Vec2 dir, float32 speed);
@@ -43,7 +42,6 @@ public:
     ~Camera3D();
     // Utility
     Mat4 getViewMatrix();
-    float32* getViewMatrixPtr();
     Vec3 getPos();
     Vec3 getTarget();
     Vec3 getCamUp();

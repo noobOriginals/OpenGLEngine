@@ -7,6 +7,7 @@
 #include <api/vao.hpp>
 #include <api/vbo.hpp>
 #include <api/texture.hpp>
+#include <api/camera.hpp>
 
 // API Util Includes
 #include <util/geometry.h>
@@ -82,6 +83,9 @@ int32 run() {
     int32 width, height;
     bool typeLSchedule = false;
     Vec2 camPos = vecCreateVec2(0.2f, 0.0f);
+
+    Camera2D cam(vecCreateVec2(0.2f, 0.0f));
+
     while (!window.shouldClose()) {
         itt++;
 
@@ -99,18 +103,20 @@ int32 run() {
             }
         }
         // Get key input and move camera based on it
+        Vec2 dir = vecCreateVec2(0.0f, 0.0f);
         if (window.keyPressed(GLFW_KEY_W)) {
-            camPos = vecAddVec2(camPos, vecCreateVec2(0.0f, 0.01f));
+            dir.y += 1;
         }
         if (window.keyPressed(GLFW_KEY_S)) {
-            camPos = vecAddVec2(camPos, vecCreateVec2(0.0f, -0.01f));
+            dir.y -= 1;
         }
         if (window.keyPressed(GLFW_KEY_D)) {
-            camPos = vecAddVec2(camPos, vecCreateVec2(0.01f, 0.0f));
+            dir.x += 1;
         }
         if (window.keyPressed(GLFW_KEY_A)) {
-            camPos = vecAddVec2(camPos, vecCreateVec2(-0.01f, 0.0f));
+            dir.x -= 1;
         }
+        cam.move(dir, 0.01f);
 
         // Set the background color of the window
         glClearColor(0.33f, 0.66f, 1.0f, 1.0f);
@@ -125,10 +131,8 @@ int32 run() {
         // Create projection mat3
         window.getSize(&width, &height);
         Mat3 proj = vecProjectionMat3((float) width / height);
-        // Create view mat3
-        Mat3 view = vecLookAtMat3(camPos);
         // Set shader uniforms
-        shader.setFloatMat3("view", vecPtrMat3(view));
+        shader.setFloatMat3("view", vecPtrMat3(cam.getViewMatrix()));
         shader.setFloatMat3("projection", vecPtrMat3(proj));
         // Bind the VAO
         vao.bind();

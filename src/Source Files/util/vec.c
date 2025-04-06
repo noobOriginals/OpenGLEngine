@@ -301,6 +301,7 @@ Vec4 vecInverseVec4(Vec4 vec) {
 // Normalization
 Vec2 vecNormalizeVec2(Vec2 v) {
     float32 length = vecLengthVec2(v);
+    if (length == 0) return v;
     Vec2 vec;
     vec.x = v.x / length;
     vec.y = v.y / length;
@@ -308,6 +309,7 @@ Vec2 vecNormalizeVec2(Vec2 v) {
 }
 Vec3 vecNormalizeVec3(Vec3 v) {
     float32 length = vecLengthVec3(v);
+    if (length == 0) return v;
     Vec3 vec;
     vec.x = v.x / length;
     vec.y = v.y / length;
@@ -316,6 +318,7 @@ Vec3 vecNormalizeVec3(Vec3 v) {
 }
 Vec4 vecNormalizeVec4(Vec4 v) {
     float32 length = vecLengthVec4(v);
+    if (length == 0) return v;
     Vec4 vec;
     vec.x = v.x / length;
     vec.y = v.y / length;
