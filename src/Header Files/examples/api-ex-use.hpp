@@ -81,7 +81,7 @@ int32 run() {
     // Other utility variables for user input
     int32 width, height;
     bool typeLSchedule = false;
-    Vec2 camPos = vecCreateVec2(0.0f, 0.0f);
+    Vec2 camPos = vecCreateVec2(0.2f, 0.0f);
     while (!window.shouldClose()) {
         itt++;
 
@@ -98,6 +98,19 @@ int32 run() {
                 window.drawWireframe();
             }
         }
+        // Get key input and move camera based on it
+        if (window.keyPressed(GLFW_KEY_W)) {
+            camPos = vecAddVec2(camPos, vecCreateVec2(0.0f, 0.01f));
+        }
+        if (window.keyPressed(GLFW_KEY_S)) {
+            camPos = vecAddVec2(camPos, vecCreateVec2(0.0f, -0.01f));
+        }
+        if (window.keyPressed(GLFW_KEY_D)) {
+            camPos = vecAddVec2(camPos, vecCreateVec2(0.01f, 0.0f));
+        }
+        if (window.keyPressed(GLFW_KEY_A)) {
+            camPos = vecAddVec2(camPos, vecCreateVec2(-0.01f, 0.0f));
+        }
 
         // Set the background color of the window
         glClearColor(0.33f, 0.66f, 1.0f, 1.0f);
@@ -109,12 +122,14 @@ int32 run() {
         shader.use();
         // Set shader texture idx
         shader.setInt("image", 0);
+        // Create projection mat3
         window.getSize(&width, &height);
-        Mat3 view = vecLookAtMat3(vecCreateVec2(0.2f, 0.0f));
-        // Mat3 view = vecLookAtMat3(camPos);
         Mat3 proj = vecProjectionMat3((float) width / height);
-        shader.setMat3("view", view.e[0]);
-        shader.setMat3("projection", proj.e[0]);
+        // Create view mat3
+        Mat3 view = vecLookAtMat3(camPos);
+        // Set shader uniforms
+        shader.setFloatMat3("view", vecPtrMat3(view));
+        shader.setFloatMat3("projection", vecPtrMat3(proj));
         // Bind the VAO
         vao.bind();
         // Bind the EBO

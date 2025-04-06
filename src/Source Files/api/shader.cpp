@@ -111,15 +111,62 @@ void Shader::setFloat4(std::string name, float32 f0, float32 f1, float32 f2, flo
 void Shader::setDouble4(std::string name, float64 d0, float64 d1, float64 d2, float64 d3) {
     glUniform4d(glGetUniformLocation(address, name.c_str()), d0, d1, d2, d3);
 }
-// Set uniform matrices
-void Shader::setMat2(std::string name, float32* ptr) {
-    glUniformMatrix2fv(glGetUniformLocation(address, name.c_str()), 1, GL_FALSE, ptr);
+// Set Mat2x unifroms
+void Shader::setFloatMat2(std::string name, float32* ptr) {
+    glUniformMatrix2fv(glGetUniformLocation(address, name.c_str()), 1, GL_TRUE, ptr);
 }
-void Shader::setMat3(std::string name, float32* ptr) {
-    glUniformMatrix3fv(glGetUniformLocation(address, name.c_str()), 1, GL_FALSE, ptr);
+void Shader::setDoubleMat2(std::string name, float64* ptr) {
+    glUniformMatrix2dv(glGetUniformLocation(address, name.c_str()), 1, GL_TRUE, ptr);
 }
-void Shader::setMat4(std::string name, float32* ptr) {
-    glUniformMatrix4fv(glGetUniformLocation(address, name.c_str()), 1, GL_FALSE, ptr);
+void Shader::setFloatMat2x3(std::string name, float32* ptr) {
+    glUniformMatrix2x3fv(glGetUniformLocation(address, name.c_str()), 1, GL_TRUE, ptr);
+}
+void Shader::setDoubleMat2x3(std::string name, float64* ptr) {
+    glUniformMatrix2x3dv(glGetUniformLocation(address, name.c_str()), 1, GL_TRUE, ptr);
+}
+void Shader::setFloatMat2x4(std::string name, float32* ptr) {
+    glUniformMatrix2x4fv(glGetUniformLocation(address, name.c_str()), 1, GL_TRUE, ptr);
+}
+void Shader::setDubleMat2x4(std::string name, float64* ptr) {
+    glUniformMatrix2x4dv(glGetUniformLocation(address, name.c_str()), 1, GL_TRUE, ptr);
+}
+// Set Mat3x unifroms
+void Shader::setFloatMat3(std::string name, float32* ptr) {
+    glUniformMatrix3fv(glGetUniformLocation(address, name.c_str()), 1, GL_TRUE, ptr);
+}
+void Shader::setDoubleMat3(std::string name, float64* ptr) {
+    glUniformMatrix3dv(glGetUniformLocation(address, name.c_str()), 1, GL_TRUE, ptr);
+}
+void Shader::setFloatMat3x2(std::string name, float32* ptr) {
+    glUniformMatrix3x2fv(glGetUniformLocation(address, name.c_str()), 1, GL_TRUE, ptr);
+}
+void Shader::setDoubleMat3x2(std::string name, float64* ptr) {
+    glUniformMatrix3x2dv(glGetUniformLocation(address, name.c_str()), 1, GL_TRUE, ptr);
+}
+void Shader::setFloatMat3x4(std::string name, float32* ptr) {
+    glUniformMatrix3x4fv(glGetUniformLocation(address, name.c_str()), 1, GL_TRUE, ptr);
+}
+void Shader::setDubleMat3x4(std::string name, float64* ptr) {
+    glUniformMatrix3x4dv(glGetUniformLocation(address, name.c_str()), 1, GL_TRUE, ptr);
+}
+// Set Mat4x unifroms
+void Shader::setFloatMat4(std::string name, float32* ptr) {
+    glUniformMatrix4fv(glGetUniformLocation(address, name.c_str()), 1, GL_TRUE, ptr);
+}
+void Shader::setDoubleMat4(std::string name, float64* ptr) {
+    glUniformMatrix4dv(glGetUniformLocation(address, name.c_str()), 1, GL_TRUE, ptr);
+}
+void Shader::setFloatMat4x2(std::string name, float32* ptr) {
+    glUniformMatrix4x2fv(glGetUniformLocation(address, name.c_str()), 1, GL_TRUE, ptr);
+}
+void Shader::setDoubleMat4x2(std::string name, float64* ptr) {
+    glUniformMatrix4x2dv(glGetUniformLocation(address, name.c_str()), 1, GL_TRUE, ptr);
+}
+void Shader::setFloatMat4x3(std::string name, float32* ptr) {
+    glUniformMatrix4x3fv(glGetUniformLocation(address, name.c_str()), 1, GL_TRUE, ptr);
+}
+void Shader::setDubleMat4x3(std::string name, float64* ptr) {
+    glUniformMatrix4x3dv(glGetUniformLocation(address, name.c_str()), 1, GL_TRUE, ptr);
 }
 
 // Private methods

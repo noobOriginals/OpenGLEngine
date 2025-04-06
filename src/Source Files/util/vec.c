@@ -102,6 +102,20 @@ void vecPrintMat4(Mat4 m) {
     printf("%f %f %f %f\n\n", m.e[3][0], m.e[3][1], m.e[3][2], m.e[3][3]);
 }
 
+// Ptr
+float32* vecPtrMat2(Mat2 m) {
+    float32* ptr = m.e;
+    return ptr;
+}
+float32* vecPtrMat3(Mat3 m) {
+    float32* ptr = m.e;
+    return ptr;
+}
+float32* vecPtrMat4(Mat4 m) {
+    float32* ptr = m.e;
+    return ptr;
+}
+
 // Transformations
 // Cast
 Vec2 vecCastVec3to2(Vec3 v) {

@@ -46,10 +46,27 @@ public:
     void setUnsignedInt4(std::string name, uint32 ui0, uint32 ui1, uint32 ui2, uint32 ui3);
     void setFloat4(std::string name, float32 f0, float32 f1, float32 f2, float32 f3);
     void setDouble4(std::string name, float64 d0, float64 d1, float64 d2, float64 d3);
-    // Set uniform matrices
-    void setMat2(std::string name, float32* ptr);
-    void setMat3(std::string name, float32* ptr);
-    void setMat4(std::string name, float32* ptr);
+    // Set Mat2x unifroms
+    void setFloatMat2(std::string name, float32* ptr);
+    void setDoubleMat2(std::string name, float64* ptr);
+    void setFloatMat2x3(std::string name, float32* ptr);
+    void setDoubleMat2x3(std::string name, float64* ptr);
+    void setFloatMat2x4(std::string name, float32* ptr);
+    void setDubleMat2x4(std::string name, float64* ptr);
+    // Set Mat3x unifroms
+    void setFloatMat3(std::string name, float32* ptr);
+    void setDoubleMat3(std::string name, float64* ptr);
+    void setFloatMat3x2(std::string name, float32* ptr);
+    void setDoubleMat3x2(std::string name, float64* ptr);
+    void setFloatMat3x4(std::string name, float32* ptr);
+    void setDubleMat3x4(std::string name, float64* ptr);
+    // Set Mat4x unifroms
+    void setFloatMat4(std::string name, float32* ptr);
+    void setDoubleMat4(std::string name, float64* ptr);
+    void setFloatMat4x2(std::string name, float32* ptr);
+    void setDoubleMat4x2(std::string name, float64* ptr);
+    void setFloatMat4x3(std::string name, float32* ptr);
+    void setDubleMat4x3(std::string name, float64* ptr);
 private:
     void compileShaders(const char* vsource, const char* fsource);
     uint32 address;

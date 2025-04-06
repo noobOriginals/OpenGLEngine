@@ -56,6 +56,14 @@ void vecPrintMat2(Mat2 m);
 void vecPrintMat3(Mat3 m);
 void vecPrintMat4(Mat4 m);
 
+// Ptr
+float32* vecPtrVec2(Vec2 v);
+float32* vecPtrVec3(Vec3 v);
+float32* vecPtrVec4(Vec4 v);
+float32* vecPtrMat2(Mat2 v);
+float32* vecPtrMat3(Mat3 v);
+float32* vecPtrMat4(Mat4 v);
+
 // Transformations
 // Cast
 Vec2 vecCastVec3to2(Vec3 v);

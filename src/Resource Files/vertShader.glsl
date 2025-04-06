@@ -3,7 +3,8 @@
 layout (location = 0) in vec3 pos;
 layout (location = 1) in vec2 texCoord;
 
-uniform mat3 view, projection;
+uniform mat3 view;
+uniform mat3 projection;
 
 out vec2 tex;
 
