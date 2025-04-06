@@ -104,15 +104,15 @@ void vecPrintMat4(Mat4 m) {
 
 // Ptr
 float32* vecPtrMat2(Mat2 m) {
-    float32* ptr = m.e;
+    float32* ptr = (float32*)m.e;
     return ptr;
 }
 float32* vecPtrMat3(Mat3 m) {
-    float32* ptr = m.e;
+    float32* ptr = (float32*)m.e;
     return ptr;
 }
 float32* vecPtrMat4(Mat4 m) {
-    float32* ptr = m.e;
+    float32* ptr = (float32*)m.e;
     return ptr;
 }
 
