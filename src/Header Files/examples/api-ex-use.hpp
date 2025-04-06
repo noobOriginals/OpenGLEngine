@@ -18,12 +18,12 @@ using namespace api;
 
 // Create point array
 // Point3D contains two vectors, one of 3 elements (x, y, z of the point) and one of 2 elements (x, y textrure coordonates of the point)
-Point3D vecs[4] = {
-    //                 X      Y     Z    TexX  TexY
-    geoCreatePoint3D( 0.5f,  0.5f, 1.0f, 1.0f, 1.0f),
-    geoCreatePoint3D( 0.5f, -0.5f, 1.0f, 1.0f, 0.0f),
-    geoCreatePoint3D(-0.5f, -0.5f, 1.0f, 0.0f, 0.0f),
-    geoCreatePoint3D(-0.5f,  0.5f, 1.0f, 0.0f, 1.0f),
+Point2D vecs[4] = {
+    //                 X      Y    TexX  TexY
+    geoCreatePoint2D( 0.5f,  0.5f, 1.0f, 1.0f),
+    geoCreatePoint2D( 0.5f, -0.5f, 1.0f, 0.0f),
+    geoCreatePoint2D(-0.5f, -0.5f, 0.0f, 0.0f),
+    geoCreatePoint2D(-0.5f,  0.5f, 0.0f, 1.0f),
 };
 // Create point drawing idx array
 uint32 idx[6] = {
@@ -60,7 +60,7 @@ int32 run() {
     // Create a VAO
     Vao vao;
     // Create a VBO
-    Vbo vbo(vbo::type::VBO, vecs, sizeof(vecs), 5);
+    Vbo vbo(vbo::type::VBO, vecs, sizeof(vecs), 4);
     // Create an EBO
     Vbo ebo(vbo::type::EBO, idx, sizeof(idx), 0);
 
@@ -70,9 +70,9 @@ int32 run() {
     vbo.bind();
     // Set VBO attributes that have to be set at each VAO bind
     // Point attribute, layout = 0
-    vbo.vertexAttribPointer(0, 0, vbo::type::VEC3);
+    vbo.vertexAttribPointer(0, 0, vbo::type::VEC2);
     // Texture attribute, layout = 1
-    vbo.vertexAttribPointer(1, VEC_SIZEOF_VEC3, vbo::type::VEC2);
+    vbo.vertexAttribPointer(1, VEC_SIZEOF_VEC2, vbo::type::VEC2);
     // Unbind VBO first
     vao.unbind();
     // Then unbind VAO
