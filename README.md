@@ -1,6 +1,6 @@
 # **NOTE**
 
-### To build this project, you currently need **[CMake](https://cmake.org/)**, **[GLFW](https://www.glfw.org/)** and **[GLAD](https://glad.dav1d.de/)**.  
+### To build this project, you currently need **[CMake](https://cmake.org/)**, **[GLFW](https://www.glfw.org/)**, **[GLAD](https://glad.dav1d.de/)** and **[stb_image](https://github.com/nothings/stb/blob/master/stb_image.h)**.  
 
 ## CMake
 
@@ -46,9 +46,18 @@ In the build directory provided to CMake, after you build the files, you should 
 Navigate to "**src/Release**", and copy the "**glfw3.lib**" to your "**opengl**" folder.  
 Then go back to your GLFW source folder and copy the contents of the "**include**" folder (the "**GLFW**" folder) to your "**opengl**" folder.
 
+## stb_image
+
+Download the raw file **[stb_image.h](https://github.com/nothings/stb/blob/master/stb_image.h)** and place it in you "**opengl**" folder in a folder named "**stb_image**".  
+**Whenever you use it, include it like this:**
+```cpp
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image/stb_image.h>
+```
+
 ## Next
 
-After completing **[theese three steps](#cmake)**, you should have a folder named "**opengl**" that has theese files: (this is if you installed all components of the VulkanSDK, and there's also **[Assimp](#assimp)**, **[stb_image](#stb_image)** and **[glm](#glm)** here as I have them already installed and placed in this folder. But don't worry about **[these](#aditional-libraries)** as I'll not be using them very soon) 
+After completing **[theese three steps](#cmake)**, you should have a folder named "**opengl**" that has theese files: (this is if you followed all of the previous steps, and there's also **[Assimp](#assimp)** and **[glm](#glm)** here as I have them already installed and placed in this folder. But don't worry about **[these](#aditional-libraries)** as I'll not be using them very soon) 
 ```bash
 $ ls
 KHR  assimp  assimp-vc143-mt.lib  glad  glad.lib  glfw  glfw3.lib  glm  stb_image 
@@ -111,15 +120,6 @@ Clone the **[GitHub Repo](https://github.com/assimp/assimp)** and follow **[thes
 **Make sure to build it with the "Release" config.**  
 Then: place the "**assimp-vc143-mtd.lib**" found in "**./lib/Release**" in your "**opengl**" folder.  
 Then: place the contents of the "**./include**" folder in your "**opengl**" folder.
-
-## stb_image
-
-Download the raw file **[stb_image.h](https://github.com/nothings/stb/blob/master/stb_image.h)** and place it in you "**opengl**" folder in a folder named "**stb_image**".  
-**Whenever you use it, include it like this:**
-```cpp
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb_image/stb_image.h>
-```
 
 ## GLM
 
