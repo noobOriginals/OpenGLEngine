@@ -119,8 +119,11 @@ Mat3 vecScaleMat3(float32 sx, float32 sy, float32 sz);
 Mat4 vecScaleMat4(float32 sx, float32 sy, float32 sz);
 Mat3 vecTranslationMat3(float32 tx, float32 ty);
 Mat4 vecTranslationMat4(float32 tx, float32 ty, float32 tz);
+Mat3 vecLookAtMat3(Vec2 pos);
+Mat3 vecProjectionMat3(float32 aspectRatio);
 Mat4 vecLookAtMat4(Vec3 pos, Vec3 target, Vec3 up);
-Mat4 vecOrthoMat4();
+Mat4 vecOrthoMat4(float32 left, float32 right, float32 bottom, float32 top, float32 near, float32 far);
+Mat4 vecPerspectiveMat4();
 
 #ifdef __cplusplus
 }

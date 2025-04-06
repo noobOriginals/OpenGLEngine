@@ -20,10 +20,10 @@ using namespace api;
 // Point3D contains two vectors, one of 3 elements (x, y, z of the point) and one of 2 elements (x, y textrure coordonates of the point)
 Point3D vecs[4] = {
     //                 X      Y     Z    TexX  TexY
-    geoCreatePoint3D( 0.5f,  0.5f, 0.0f, 1.0f, 1.0f),
-    geoCreatePoint3D( 0.5f, -0.5f, 0.0f, 1.0f, 0.0f),
-    geoCreatePoint3D(-0.5f, -0.5f, 0.0f, 0.0f, 0.0f),
-    geoCreatePoint3D(-0.5f,  0.5f, 0.0f, 0.0f, 1.0f),
+    geoCreatePoint3D( 0.5f,  0.5f, 1.0f, 1.0f, 1.0f),
+    geoCreatePoint3D( 0.5f, -0.5f, 1.0f, 1.0f, 0.0f),
+    geoCreatePoint3D(-0.5f, -0.5f, 1.0f, 0.0f, 0.0f),
+    geoCreatePoint3D(-0.5f,  0.5f, 1.0f, 0.0f, 1.0f),
 };
 // Create point drawing idx array
 uint32 idx[6] = {
@@ -79,7 +79,9 @@ int32 run() {
     vbo.unbind();
 
     // Other utility variables for user input
+    int32 width, height;
     bool typeLSchedule = false;
+    Vec2 camPos = vecCreateVec2(0.0f, 0.0f);
     while (!window.shouldClose()) {
         itt++;
 
@@ -107,6 +109,12 @@ int32 run() {
         shader.use();
         // Set shader texture idx
         shader.setInt("image", 0);
+        window.getSize(&width, &height);
+        Mat3 view = vecLookAtMat3(vecCreateVec2(0.2f, 0.0f));
+        // Mat3 view = vecLookAtMat3(camPos);
+        Mat3 proj = vecProjectionMat3((float) width / height);
+        shader.setMat3("view", view.e[0]);
+        shader.setMat3("projection", proj.e[0]);
         // Bind the VAO
         vao.bind();
         // Bind the EBO

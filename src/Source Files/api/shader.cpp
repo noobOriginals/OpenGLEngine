@@ -111,6 +111,16 @@ void Shader::setFloat4(std::string name, float32 f0, float32 f1, float32 f2, flo
 void Shader::setDouble4(std::string name, float64 d0, float64 d1, float64 d2, float64 d3) {
     glUniform4d(glGetUniformLocation(address, name.c_str()), d0, d1, d2, d3);
 }
+// Set uniform matrices
+void Shader::setMat2(std::string name, float32* ptr) {
+    glUniformMatrix2fv(glGetUniformLocation(address, name.c_str()), 1, GL_FALSE, ptr);
+}
+void Shader::setMat3(std::string name, float32* ptr) {
+    glUniformMatrix3fv(glGetUniformLocation(address, name.c_str()), 1, GL_FALSE, ptr);
+}
+void Shader::setMat4(std::string name, float32* ptr) {
+    glUniformMatrix4fv(glGetUniformLocation(address, name.c_str()), 1, GL_FALSE, ptr);
+}
 
 // Private methods
 void Shader::compileShaders(const char* vsource, const char* fsource) {

@@ -46,6 +46,10 @@ public:
     void setUnsignedInt4(std::string name, uint32 ui0, uint32 ui1, uint32 ui2, uint32 ui3);
     void setFloat4(std::string name, float32 f0, float32 f1, float32 f2, float32 f3);
     void setDouble4(std::string name, float64 d0, float64 d1, float64 d2, float64 d3);
+    // Set uniform matrices
+    void setMat2(std::string name, float32* ptr);
+    void setMat3(std::string name, float32* ptr);
+    void setMat4(std::string name, float32* ptr);
 private:
     void compileShaders(const char* vsource, const char* fsource);
     uint32 address;

@@ -573,6 +573,18 @@ Mat4 vecTranslationMat4(float32 tx, float32 ty, float32 tz) {
     m.e[2][3] = tz;
     return m;
 }
+Mat3 vecLookAtMat3(Vec2 pos) {
+    Mat3 m = vecCreateMat3(1.0f);
+    m.e[0][2] = -pos.x;
+    m.e[1][2] = -pos.y;
+    return m;
+}
+Mat3 vecProjectionMat3(float32 aspectRatio) {
+    Mat3 m = vecCreateMat3(1.0f);
+    if (aspectRatio > 1.0f) m.e[0][0] = 1.0f / aspectRatio;
+    if (aspectRatio < 1.0f) m.e[1][1] = aspectRatio;
+    return m;
+}
 Mat4 vecLookAtMat4(Vec3 pos, Vec3 target, Vec3 up) {
     Vec3 dir = vecAddVec3(pos, vecInverseVec3(target));
     Vec3 right = vecCrossVec3(up, dir);
@@ -592,6 +604,16 @@ Mat4 vecLookAtMat4(Vec3 pos, Vec3 target, Vec3 up) {
     l.e[2][2] = dir.z;
     return vecDotMat4(l, r);
 }
-Mat4 vecOrthoMat4() {
+Mat4 vecOrthoMat4(float32 left, float32 right, float32 bottom, float32 top, float32 near, float32 far) {
+    Mat4 m = vecCreateMat4(1.0f);
+    m.e[0][0] = 2 / (right - left);
+    m.e[0][3] = -(right + left) / (right - left);
+    m.e[1][1] = 2 / (top - bottom);
+    m.e[1][3] = -(top + bottom) / (top - bottom);
+    m.e[2][2] = -2 / (far - near);
+    m.e[2][3] = -(far + near) / (far - near);
+    return m;
+}
+Mat4 vecPerspectiveMat4() {
     return vecCreateMat4(1.0f);
 }
