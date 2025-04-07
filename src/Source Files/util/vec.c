@@ -623,14 +623,22 @@ Mat4 vecLookAtMat4(Vec3 pos, Vec3 target, Vec3 up) {
 }
 Mat4 vecOrthoMat4(float32 left, float32 right, float32 bottom, float32 top, float32 near, float32 far) {
     Mat4 m = vecCreateMat4(1.0f);
-    m.e[0][0] = 2 / (right - left);
-    m.e[0][3] = -(right + left) / (right - left);
-    m.e[1][1] = 2 / (top - bottom);
-    m.e[1][3] = -(top + bottom) / (top - bottom);
-    m.e[2][2] = -2 / (far - near);
-    m.e[2][3] = -(far + near) / (far - near);
+    m.e[0][0] = 2.0f / (right - left);
+    m.e[0][3] = (right + left) / (right - left) * -1.0f;
+    m.e[1][1] = 2.0f / (top - bottom);
+    m.e[1][3] = (top + bottom) / (top - bottom) * -1.0f;
+    m.e[2][2] = 2.0f / (far - near) * -1.0f;
+    m.e[2][3] = (far + near) / (far - near) * -1.0f;
     return m;
 }
-Mat4 vecPerspectiveMat4() {
-    return vecCreateMat4(1.0f);
+Mat4 vecPerspectiveMat4(float32 left, float32 right, float32 bottom, float32 top, float32 near, float32 far) {
+    Mat4 m = vecCreateMat4(0.0f);
+    m.e[0][0] = (2 * near) / (right - left);
+    m.e[0][2] = (right + left) / (right - left);
+    m.e[1][1] = 2 * near / (top - bottom);
+    m.e[1][2] = (top + bottom) / (top - bottom);
+    m.e[2][2] = (far + near) / (far - near) * -1.0f;
+    m.e[2][2] = (-2.0f * far * near) / (far - near);
+    m.e[3][2] = -1.0f;
+    return m;
 }

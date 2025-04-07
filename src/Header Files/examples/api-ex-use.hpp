@@ -19,12 +19,12 @@ using namespace api;
 
 // Create point array
 // Point3D contains two vectors, one of 3 elements (x, y, z of the point) and one of 2 elements (x, y textrure coordonates of the point)
-Point2D vecs[4] = {
-    //                 X      Y    TexX  TexY
-    geoCreatePoint2D( 0.5f,  0.5f, 1.0f, 1.0f),
-    geoCreatePoint2D( 0.5f, -0.5f, 1.0f, 0.0f),
-    geoCreatePoint2D(-0.5f, -0.5f, 0.0f, 0.0f),
-    geoCreatePoint2D(-0.5f,  0.5f, 0.0f, 1.0f),
+Point3D vecs[4] = {
+    //                 X      Y     Z    TexX  TexY
+    geoCreatePoint3D( 0.5f,  0.5f, 0.0f, 1.0f, 1.0f),
+    geoCreatePoint3D( 0.5f, -0.5f, 0.0f, 1.0f, 0.0f),
+    geoCreatePoint3D(-0.5f, -0.5f, 0.0f, 0.0f, 0.0f),
+    geoCreatePoint3D(-0.5f,  0.5f, 0.0f, 0.0f, 1.0f),
 };
 // Create point drawing idx array
 uint32 idx[6] = {
@@ -61,7 +61,7 @@ int32 run() {
     // Create a VAO
     Vao vao;
     // Create a VBO
-    Vbo vbo(vbo::type::VBO, vecs, sizeof(vecs), 4);
+    Vbo vbo(vbo::type::VBO, vecs, sizeof(vecs), 5);
     // Create an EBO
     Vbo ebo(vbo::type::EBO, idx, sizeof(idx), 0);
 
@@ -71,9 +71,9 @@ int32 run() {
     vbo.bind();
     // Set VBO attributes that have to be set at each VAO bind
     // Point attribute, layout = 0
-    vbo.vertexAttribPointer(0, 0, vbo::type::VEC2);
+    vbo.vertexAttribPointer(0, 0, vbo::type::VEC3);
     // Texture attribute, layout = 1
-    vbo.vertexAttribPointer(1, VEC_SIZEOF_VEC2, vbo::type::VEC2);
+    vbo.vertexAttribPointer(1, VEC_SIZEOF_VEC3, vbo::type::VEC2);
     // Unbind VBO first
     vao.unbind();
     // Then unbind VAO
@@ -82,7 +82,6 @@ int32 run() {
     // Other utility variables for user input
     int32 width, height;
     bool typeLSchedule = false;
-    Vec2 camPos = vecCreateVec2(0.2f, 0.0f);
 
     Camera2D cam(vecCreateVec2(0.2f, 0.0f));
 
@@ -130,10 +129,11 @@ int32 run() {
         shader.setInt("image", 0);
         // Create projection mat3
         window.getSize(&width, &height);
-        Mat3 proj = vecProjectionMat3((float) width / height);
+        Mat4 proj = vecPerspectiveMat4(-1.0f, 1.0f, -1.0f, 1.0f, -0.1f, 100.0f);
         // Set shader uniforms
-        shader.setFloatMat3("view", vecPtrMat3(cam.getViewMatrix()));
-        shader.setFloatMat3("projection", vecPtrMat3(proj));
+        shader.setFloatMat4("view", vecPtrMat4(vecLookAtMat4(vecCreateVec3(0.0f, 0.0f, -0.5f), vecCreateVec3(0.0f, 0.0f, 0.0f), vecCreateVec3(0.0f, 1.0f, 0.0f))));
+        // shader.setFloatMat4("view", vecPtrMat4(vecTranslationMat4(0.0f, 0.0f, 0.6f)));
+        shader.setFloatMat4("projection", vecPtrMat4(proj));
         // Bind the VAO
         vao.bind();
         // Bind the EBO
