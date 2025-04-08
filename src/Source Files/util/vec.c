@@ -631,6 +631,14 @@ Mat4 vecOrthoMat4(float32 left, float32 right, float32 bottom, float32 top, floa
     m.e[2][3] = -(far + near) / (far - near);
     return m;
 }
-Mat4 vecPerspectiveMat4() {
-    return vecCreateMat4(1.0f);
+Mat4 vecPerspectiveMat4(float32 fov, float32 aspect, float32 near, float32 far) {
+    float64 angle = fov * VEC_PI / 180.0f;
+    float32 ctan = 1.0f / tan(angle / 2);
+    Mat4 m = vecCreateMat4(0.0f);
+    m.e[0][0] = ctan / aspect;
+    m.e[1][1] = ctan;
+    m.e[2][2] = far / (far - near);
+    m.e[2][3] = (near * far) / (far - near);
+    m.e[3][2] = -1.0f;
+    return m;
 }
