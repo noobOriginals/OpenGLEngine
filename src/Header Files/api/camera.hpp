@@ -45,6 +45,13 @@ public:
     Vec3 getPos();
     Vec3 getTarget();
     Vec3 getCamUp();
+    void move(float32 mx, float32 my, float32 mz);
+    void move(Vec3 dir, float32 speed);
+    void moveX(float32 mx);
+    void moveY(float32 my);
+    void moveZ(float32 mz);
+    void setTarget(Vec3 target);
+    void rotate(float32 angX, float32 angY);
 private:
     Vec3 pos, target, up;
     Mat4 transform;

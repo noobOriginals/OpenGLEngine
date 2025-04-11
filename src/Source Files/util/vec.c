@@ -437,7 +437,7 @@ Vec3 vecDotMV3(Mat3 m, Vec3 v) {
     vec.z = m.e[2][0] * v.x + m.e[2][1] * v.y + m.e[2][2] * v.z;
     return vec;
 }
-Vec4 vecDomMV4(Mat3 m, Vec4 v) {
+Vec4 vecDomMV4(Mat4 m, Vec4 v) {
     Vec4 vec;
     vec.x = m.e[0][0] * v.x + m.e[0][1] * v.y + m.e[0][2] * v.z + m.e[0][3] * v.w;
     vec.y = m.e[1][0] * v.x + m.e[1][1] * v.y + m.e[1][2] * v.z + m.e[1][3] * v.w;
@@ -500,8 +500,8 @@ Mat4 vecDotMat4(Mat4 m0, Mat4 m1) {
 }
 
 // Matrix creation methods
-Mat2 vecRotationMat2(float64 angleInDeg) {
-    float64 angle = angleInDeg * VEC_PI / 180.0f;
+Mat2 vecRotationMat2(float32 angleInDeg) {
+    float32 angle = angleInDeg * VEC_PI / 180.0f;
     float32 sinus = sin(angle);
     float32 cosinus = cos(angle);
     Mat2 m;
@@ -513,8 +513,8 @@ Mat2 vecRotationMat2(float64 angleInDeg) {
     m.e[1][1] = cosinus;
     return m;
 }
-Mat3 vecRotationMat3(float64 angleInDeg, float64 x, float64 y, float64 z) {
-    float64 angle = angleInDeg * VEC_PI / 180.0f;
+Mat3 vecRotationMat3(float32 angleInDeg, float32 x, float32 y, float32 z) {
+    float32 angle = angleInDeg * VEC_PI / 180.0f;
     float32 xsin = sin(angle * x);
     float32 ysin = sin(angle * y);
     float32 zsin = sin(angle * z);
@@ -536,8 +536,8 @@ Mat3 vecRotationMat3(float64 angleInDeg, float64 x, float64 y, float64 z) {
     m.e[2][2] = ycos * xcos;
     return m;
 }
-Mat4 vecRotaionMat4(float64 angleInDeg, float64 x, float64 y, float64 z) {
-    float64 angle = angleInDeg * VEC_PI / 180.0f;
+Mat4 vecRotationMat4(float32 angleInDeg, float32 x, float32 y, float32 z) {
+    float32 angle = angleInDeg * VEC_PI / 180.0f;
     float32 xsin = sin(angle * x);
     float32 ysin = sin(angle * y);
     float32 zsin = sin(angle * z);
@@ -604,7 +604,9 @@ Mat3 vecProjectionMat3(float32 aspectRatio) {
 }
 Mat4 vecLookAtMat4(Vec3 pos, Vec3 target, Vec3 up) {
     Vec3 dir = vecAddVec3(pos, vecInverseVec3(target));
-    Vec3 right = vecCrossVec3(up, dir);
+    dir = vecNormalizeVec3(dir);
+    up = vecNormalizeVec3(up);
+    Vec3 right = vecCrossVec3(dir, up);
     Mat4 l = vecCreateMat4(1.0f);
     Mat4 r = vecTranslationMat4(-pos.x, -pos.y, -pos.z);
     // Right vec

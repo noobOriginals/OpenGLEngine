@@ -79,6 +79,9 @@ Mat3 vecCastMat4to3(Mat4 m);
 Mat4 vecCastMat2to4(Mat2 m, float32 diag);
 Mat4 vecCastMat3to4(Mat3 m, float32 diag);
 // Utility
+int8 vecEqualVec2(Vec2 v0, Vec2 v1);
+int8 vecEqualVec3(Vec3 v0, Vec3 v1);
+int8 vecEqualVec4(Vec4 v0, Vec4 v1);
 float32 vecLengthVec2(Vec2 v);
 float32 vecLengthVec3(Vec3 v);
 float32 vecLengthVec4(Vec4 v);
@@ -113,15 +116,15 @@ Vec3 vecCrossVec3(Vec3 v0, Vec3 v1);
 // Matrix multiplication
 Vec2 vecDotMV2(Mat2 m, Vec2 v);
 Vec3 vecDotMV3(Mat3 m, Vec3 v);
-Vec4 vecDomMV4(Mat3 m, Vec4 v);
+Vec4 vecDomMV4(Mat4 m, Vec4 v);
 Mat2 vecDotMat2(Mat2 m0, Mat2 m1);
 Mat3 vecDotMat3(Mat3 m0, Mat3 m1);
 Mat4 vecDotMat4(Mat4 m0, Mat4 m1);
 
 // Matrix creation methods
-Mat2 vecRotationMat2(float64 angleInDeg);
-Mat3 vecRotationMat3(float64 angleInDeg, float64 x, float64 y, float64 z);
-Mat4 vecRotaionMat4(float64 angleInDeg, float64 x, float64 y, float64 z);
+Mat2 vecRotationMat2(float32 angleInDeg);
+Mat3 vecRotationMat3(float32 angleInDeg, float32 x, float32 y, float32 z);
+Mat4 vecRotationMat4(float32 angleInDeg, float32 x, float32 y, float32 z);
 Mat2 vecScaleMat2(float32 sx, float32 sy);
 Mat3 vecScaleMat3(float32 sx, float32 sy, float32 sz);
 Mat4 vecScaleMat4(float32 sx, float32 sy, float32 sz);

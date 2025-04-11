@@ -83,7 +83,12 @@ int32 run() {
     int32 width, height;
     bool typeLSchedule = false;
 
-    Vec3 camPos = vecCreateVec3(0.0f, 0.0f, -1.0f);
+    Vec3 camPos = vecCreateVec3(0.0f, 0.0f, -2.0f);
+
+    Camera3D cam(camPos, vecCreateVec3(0.0f, 0.0f, 0.0f));
+
+    Vec3 oldPos = cam.getPos();
+    Mat4 oldMat = cam.getViewMatrix();
 
     while (!window.shouldClose()) {
         itt++;
@@ -102,12 +107,12 @@ int32 run() {
             }
         }
         // Get key input and move camera based on it
-        Vec2 dir = vecCreateVec2(0.0f, 0.0f);
+        Vec3 dir = vecCreateVec3(0.0f, 0.0f, 0.0f);
         if (window.keyPressed(GLFW_KEY_W)) {
-            dir.y += 1;
+            dir.z += 1;
         }
         if (window.keyPressed(GLFW_KEY_S)) {
-            dir.y -= 1;
+            dir.z -= 1;
         }
         if (window.keyPressed(GLFW_KEY_D)) {
             dir.x += 1;
@@ -115,6 +120,21 @@ int32 run() {
         if (window.keyPressed(GLFW_KEY_A)) {
             dir.x -= 1;
         }
+        cam.move(dir, 0.01f);
+        Vec2 angs = vecCreateVec2(0.0f, 0.0f);
+        if (window.keyPressed(GLFW_KEY_UP)) {
+            angs.x += 1.0f;
+        }
+        if (window.keyPressed(GLFW_KEY_DOWN)) {
+            angs.x -= 1.0f;
+        }
+        if (window.keyPressed(GLFW_KEY_RIGHT)) {
+            angs.y += 1.0f;
+        }
+        if (window.keyPressed(GLFW_KEY_LEFT)) {
+            angs.y -= 1.0f;
+        }
+        cam.rotate(angs.x, angs.y);
 
         // Set the background color of the window
         glClearColor(0.33f, 0.66f, 1.0f, 1.0f);
@@ -131,9 +151,17 @@ int32 run() {
         // Create projection mat4
         window.getSize(&width, &height);
         Mat4 proj = vecPerspectiveMat4(70.0f, (float) width / height, 0.1f, 100.0f);
-        vecPrintMat4(proj);
+        // Vec3 pos = cam.getPos();
+        // if (pos != oldPos) {
+        //     vecPrintVec3(pos);
+        //     oldPos = pos;
+        // }
+        // if (mat != oldMat) {
+        //     vecPrintMat4(mat);
+        //     oldMat = mat;
+        // }
         // Set shader uniforms
-        shader.setFloatMat4("view", vecPtrMat4(view));
+        shader.setFloatMat4("view", vecPtrMat4(cam.getViewMatrix()));
         shader.setFloatMat4("projection", vecPtrMat4(proj));
         // Bind the VAO
         vao.bind();
